@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <!-- Matches Curiosity.Plugin's real target (see its csproj comment); also means this test
+         project needs no Windows Forms and could in principle run cross-platform, even though
+         nothing in this repo has actually run `dotnet test` yet (no reachable .NET SDK when this
+         was authored — see STATUS.md). -->
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
   </PropertyGroup>

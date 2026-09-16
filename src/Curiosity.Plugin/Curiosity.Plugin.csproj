@@ -1,10 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- AutoCAD .NET plugins currently require .NET Framework (AutoCAD 2025/2026 still ship on .NET Framework 4.8
-         for the managed API, not .NET 6+/Core), so this targets net48, not net8.0. Revisit if/when Autodesk
-         ships a .NET-Core-hosted managed API for the targeted AutoCAD version. -->
-    <TargetFramework>net48</TargetFramework>
+    <!-- Originally assumed net48 (true for AutoCAD 2025/2026's managed API), but a real build against
+         a real AutoCAD 2027 install proved that wrong: AcMgd/AcDbMgd/AcCoreMgd there are compiled
+         against System.Runtime 10.0.0.0-era facades, which net48 can't satisfy (CS1705 assembly
+         version errors). AutoCAD 2027 evidently moved its managed API onto a modern .NET runtime.
+         net8.0-windows matches that, and also natively supports records/init accessors (no
+         IsExternalInit polyfill needed) and, with UseWindowsForms below, System.Windows.Forms. -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
