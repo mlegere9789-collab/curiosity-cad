@@ -1,13 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Originally assumed net48 (true for AutoCAD 2025/2026's managed API), but a real build against
-         a real AutoCAD 2027 install proved that wrong: AcMgd/AcDbMgd/AcCoreMgd there are compiled
-         against System.Runtime 10.0.0.0-era facades, which net48 can't satisfy (CS1705 assembly
-         version errors). AutoCAD 2027 evidently moved its managed API onto a modern .NET runtime.
-         net8.0-windows matches that, and also natively supports records/init accessors (no
-         IsExternalInit polyfill needed) and, with UseWindowsForms below, System.Windows.Forms. -->
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <!-- Went net48 -> net8.0-windows -> net10.0-windows, each step corrected by a real build error
+         against a real AutoCAD 2027 install. AcMgd/AcDbMgd/AcCoreMgd there are compiled directly
+         against System.Runtime 10.0.0.0 (CS1705 confirmed this exactly, twice, first against net48's
+         facade then against net8.0's) -- AutoCAD 2027 has moved its managed API onto .NET 10. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
     <LangVersion>latest</LangVersion>
