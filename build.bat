@@ -60,7 +60,18 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM --- Step 3: build ---
+REM --- Step 3: restore NuGet packages, then build ---
+echo Restoring packages...
+echo.
+msbuild "%~dp0src\Curiosity.Plugin\Curiosity.Plugin.csproj" /t:Restore /nologo /v:minimal
+if %errorlevel% neq 0 (
+    echo.
+    echo RESTORE FAILED. Copy the red/error text above and send it back for a fix.
+    pause
+    exit /b 1
+)
+
+echo.
 echo Building...
 echo.
 msbuild "%~dp0src\Curiosity.Plugin\Curiosity.Plugin.csproj" /p:Configuration=Debug /nologo /v:minimal
