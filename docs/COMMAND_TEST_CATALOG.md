@@ -17,6 +17,10 @@ The actual "ready for testing" tracker toward the full ~1,500-command/variable t
 2. The project owner (or a classmate) runs each `nl_phrase` through the real Curiosity panel against a real AutoCAD drawing, and checks the `verification` condition.
 3. Results feed back into `status` and, for anything that fails, into a bug report the same way the lineweight test's initial regex-ordering bug got caught and fixed — a real result changes real code, not just fills in a checkbox.
 
+## Confidence levels (read before trusting a row blind)
+
+**Core AutoCAD rows are higher-confidence** — these are widely documented commands with well-established prompt sequences. **Specialized-toolset rows (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design) are lower-confidence** — these products are far less represented in general documentation/training material than core AutoCAD, so command names and especially exact prompt sequences (option letters, prompt order) are more likely to be wrong or approximate. Treat every toolset row as "best guess, needs real verification" more than "should just work" — expect a higher failure/correction rate when these actually get tested, and don't be surprised or alarmed by that; it's exactly why the catalog exists rather than shipping untested command mappings straight into the plugin.
+
 ## Known exception categories (flagged honestly, not silently skipped)
 
 Some commands cannot be driven purely through `SendStringToExecute` text, for reasons explained in `docs/ARCHITECTURE.md`'s "Full command-surface coverage strategy":

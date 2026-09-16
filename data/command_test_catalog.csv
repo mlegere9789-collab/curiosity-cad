@@ -1372,3 +1372,161 @@ EXPERT,Settings,suppress extra confirmation prompts,"EXPERT
 FILEDIA,Settings,turn off file dialog boxes in favor of command-line prompts,"FILEDIA
 0
 ",SETVAR FILEDIA now reports 0; commands like OPEN/SAVE use command-line prompts instead of dialogs.,not_tested
+AECWALLADD,Architecture Toolset,"draw an architectural wall from 0,0 to 10,0","WALLADD
+0,0
+10,0
+
+",A new AEC Wall object exists between those points with automatic schedule data.,not_tested
+AECDOORADD,Architecture Toolset,insert a door in the selected wall at its midpoint,"DOORADD
+
+
+","A new AEC Door object is inserted into the selected wall, cutting an opening.",not_tested
+AECWINDOWADD,Architecture Toolset,insert a window in the selected wall,"WINDOWADD
+
+","A new AEC Window object is inserted into the selected wall, cutting an opening.",not_tested
+AECROOFADD,Architecture Toolset,add a roof over the selected walls,"ROOFADD
+
+",A new AEC Roof object is generated over the selected wall layout.,not_tested
+AECSPACEADD,Architecture Toolset,add a space object inside the selected room boundary,"SPACEADD
+
+",A new AEC Space object fills the selected enclosed area with area/perimeter data.,not_tested
+AECDOORWINDOWASSEMBLYADD,Architecture Toolset,insert a door-window assembly in the selected wall,"DOORWINDOWASSEMBLYADD
+
+",A new combined door/window assembly is inserted into the selected wall.,not_tested
+AECSCHEDULEADD,Architecture Toolset,"add a door schedule table to the drawing at 0,0","SCHEDULEADD
+Door
+0,0
+","A new schedule table listing all doors and their properties exists at 0,0.",not_tested
+AECSTAIRADD,Architecture Toolset,"add a stair from 0,0 to 0,10","STAIRADD
+0,0
+0,10
+",A new AEC Stair object exists between those points.,not_tested
+AECRAILINGADD,Architecture Toolset,add a railing along the selected stair,"RAILINGADD
+
+",A new AEC Railing object follows the selected stair or edge.,not_tested
+AECCURTAINWALLADD,Architecture Toolset,"add a curtain wall from 0,0 to 10,0","CURTAINWALLADD
+0,0
+10,0
+
+",A new curtain wall system exists between those points.,not_tested
+AECSPACEEVALUATE,Architecture Toolset,evaluate the selected space's boundary,"SPACEEVALUATE
+
+",The selected AEC Space's boundary recalculates against surrounding walls.,not_tested
+AMPOWERTRIM,Mechanical Toolset,power-trim the selected mechanical part,"AMPOWERTRIM
+
+",The selected mechanical geometry trims intelligently against neighboring parts.,not_tested
+AMBOM,Mechanical Toolset,generate a bill of materials for the drawing,"AMBOM
+",A new BOM table listing all mechanical parts/quantities is generated (dialog-based; flagged partial).,not_tested
+AMPARTREF,Mechanical Toolset,insert a standard part from the mechanical parts library,"AMPARTREF
+",The Part Reference browser opens to insert a standards-based part (dialog-based; flagged partial).,not_tested
+AMSTEELROLLED,Mechanical Toolset,"insert a structural steel shape at 0,0","AMSTEELROLLED
+0,0
+","A new structural steel shape (from the mechanical library) is inserted at 0,0 (dialog-based; flagged partial).",not_tested
+AMBALLOON,Mechanical Toolset,add a balloon callout to the selected part,"AMBALLOON
+
+
+","A new numbered balloon annotation points at the selected part, keyed to the BOM.",not_tested
+AMPOWERDIM,Mechanical Toolset,add a power dimension to the selection,"AMPOWERDIM
+
+",A new intelligent mechanical dimension annotates the selected geometry.,not_tested
+AMEDGESTYLE,Mechanical Toolset,set the selected edge to hidden style,"AMEDGESTYLE
+
+",The selected edge's display style changes to hidden (dialog-based; flagged partial).,not_tested
+AEWIRE,Electrical Toolset,"draw a wire from the selected terminal to 5,5","AEWIRE
+
+5,5
+
+",A new electrical wire connects the selected terminal to that point.,not_tested
+AECOMPONENT,Electrical Toolset,insert an electrical symbol from the schematic library,"AECOMPONENT
+",The Insert Component dialog opens to place a schematic symbol (dialog-based; flagged partial).,not_tested
+AELADDER,Electrical Toolset,"insert a new ladder diagram at 0,0","AELADDER
+0,0
+","A new electrical ladder diagram framework exists at 0,0 (dialog-based; flagged partial).",not_tested
+AEWIRENO,Electrical Toolset,renumber all wire numbers in the drawing,"AEWIRENO
+A
+",Wire number tags throughout the drawing renumber sequentially.,not_tested
+AEERRORCHECK,Electrical Toolset,run an error check on the electrical drawing,"AEERRORCHECK
+",An automated error-check report lists control-system wiring issues (dialog-based; flagged partial).,not_tested
+AEPANEL,Electrical Toolset,"insert a panel layout footprint at 0,0","AEPANEL
+0,0
+","A new panel-layout footprint symbol exists at 0,0 (dialog-based; flagged partial).",not_tested
+AETAGID,Electrical Toolset,retag the selected component's ID,"AETAGID
+
+",The selected component's tag/ID updates per project numbering scheme.,not_tested
+MEPDUCTADD,MEP Toolset,"add a duct run from 0,0 to 10,0","DUCTADD
+0,0
+10,0
+
+",A new MEP duct object exists between those points with automatic sizing.,not_tested
+MEPPIPEADD,MEP Toolset,"add a pipe run from 0,0 to 10,0","PIPEADD
+0,0
+10,0
+
+",A new MEP pipe object exists between those points.,not_tested
+MEPCABLETRAYADD,MEP Toolset,"add a cable tray run from 0,0 to 10,0","CABLETRAYADD
+0,0
+10,0
+
+",A new MEP cable tray object exists between those points.,not_tested
+MEPCONDUITADD,MEP Toolset,"add a conduit run from 0,0 to 10,0","CONDUITADD
+0,0
+10,0
+
+",A new MEP conduit object exists between those points.,not_tested
+MEPEQUIPMENTADD,MEP Toolset,"insert a piece of MEP equipment at 0,0","EQUIPMENTADD
+0,0
+","A new MEP equipment object (e.g. an AHU) is inserted at 0,0 (dialog-based; flagged partial).",not_tested
+MEPSIZECALC,MEP Toolset,auto-size the selected duct system,"SIZECALC
+
+",The selected duct/pipe run's size auto-calculates from system flow requirements.,not_tested
+MEPCONNECT,MEP Toolset,connect the selected duct fittings,"MEPCONNECT
+
+
+",The selected duct/pipe fittings join with automatic connector alignment.,not_tested
+PIDADDLINE,Plant 3D Toolset,"draw a process line from 0,0 to 10,0 on the P&ID","PIDADDLINE
+0,0
+10,0
+
+",A new P&ID process line exists between those points.,not_tested
+PIDADDEQUIPMENT,Plant 3D Toolset,"insert a P&ID equipment symbol at 0,0","PIDADDEQUIPMENT
+0,0
+","A new P&ID equipment symbol (e.g. a pump) is inserted at 0,0 (dialog-based; flagged partial).",not_tested
+PIDADDVALVE,Plant 3D Toolset,insert a valve on the selected process line,"PIDADDVALVE
+
+",A new valve symbol is inserted at the picked point on the selected line.,not_tested
+PLANTPIPEADD,Plant 3D Toolset,"add a 3D piping run from 0,0,0 to 10,0,0","PLANTPIPEADD
+0,0,0
+10,0,0
+
+",A new 3D pipe object exists between those points with catalog-based sizing.,not_tested
+PLANTISOCREATE,Plant 3D Toolset,create an isometric drawing of the selected piping run,"PLANTISOCREATE
+
+",A new isometric drawing sheet is generated from the selected 3D piping.,not_tested
+PIDLINENUMBER,Plant 3D Toolset,add a line number tag to the selected process line,"PIDLINENUMBER
+
+",A line-number annotation tag is added to the selected P&ID line.,not_tested
+MAPCONNECT,Map 3D Toolset,connect to a spatial database data source,"MAPCONNECT
+",The Data Connect palette opens to link a GIS/spatial database source (dialog-based; flagged partial).,not_tested
+MAPIMPORT,Map 3D Toolset,import GIS shapefile data into the drawing,"MAPIMPORT
+",Geospatial data from the named source is imported as drawing geometry (dialog-based; flagged partial).,not_tested
+MAPEXPORT,Map 3D Toolset,export the drawing's geospatial data to a shapefile,"MAPEXPORT
+",Drawing geometry is exported to a GIS-compatible format (dialog-based; flagged partial).,not_tested
+MAPQUERY,Map 3D Toolset,query features within the current drawing extents,"MAPQUERY
+",The Query palette opens to filter/select GIS features by attribute or location (dialog-based; flagged partial).,not_tested
+MAPWORKSPACE,Map 3D Toolset,open the current map workspace,"MAPWORKSPACE
+",The Map task pane/workspace showing available spatial layers opens.,not_tested
+RASTERATTACH,Raster Design Toolset,"attach a scanned raster image for vectorization at 0,0","RASTERATTACH
+C:/scan.tif
+0,0
+1
+0
+",The scanned raster image is attached to the drawing for tracing/vectorization.,not_tested
+RVECTORIZE,Raster Design Toolset,vectorize the selected raster lines automatically,"RVECTORIZE
+
+",The selected raster line-work converts into vector line/polyline entities.,not_tested
+RCLEAN,Raster Design Toolset,clean up noise in the selected raster image,"RCLEAN
+
+",Speckle/noise artifacts in the selected raster image are removed.,not_tested
+RTRACE,Raster Design Toolset,manually trace over the selected raster line,"RTRACE
+
+",A new vector line/polyline is drawn tracing the selected raster feature.,not_tested
