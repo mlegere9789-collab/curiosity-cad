@@ -10,7 +10,15 @@ This repo was authored outside Windows and outside AutoCAD — there is no AutoC
    `C:\Program Files\Autodesk\AutoCAD 2026\AcMgd.dll`, `AcDbMgd.dll`, `AcCoreMgd.dll`
    (adjust the version folder to whatever you have installed).
 
-## Build
+## Build — easy way (recommended if you don't already use Visual Studio)
+
+1. One-time only: install **Visual Studio Build Tools** (free, much smaller than full Visual Studio — it's just the compiler, no IDE window): https://visualstudio.microsoft.com/downloads/ → scroll to "Tools for Visual Studio" → "Build Tools for Visual Studio" → during its install, check **".NET desktop build tools"**.
+2. Download this repo (Code → Download ZIP on GitHub, or `git clone`) and unzip it.
+3. Double-click `build.bat` in the repo's root folder. It auto-detects your AutoCAD install, points the build at it, and compiles. If it can't find AutoCAD automatically, it'll ask you to paste the folder path (the one containing `AcMgd.dll`).
+4. If it says "BUILD SUCCEEDED," your DLL is at `src\Curiosity.Plugin\bin\Debug\net48\Curiosity.Plugin.dll`. Jump to "Load into AutoCAD" below.
+5. If it fails, copy the red error text exactly and send it back — that's the fastest way to get it fixed.
+
+## Build — manual way (if you already use Visual Studio)
 
 1. Clone this repo.
 2. Set the `AUTOCAD_INSTALL_DIR` environment variable to your AutoCAD install folder (the one containing the three DLLs above), or create a `src/Curiosity.Plugin/Curiosity.Plugin.csproj.user` file (gitignored) overriding the `HintPath`s directly.
