@@ -65,10 +65,18 @@ namespace Curiosity.Plugin.NlParser
         private static string BuildSystemPrompt() =>
             "You translate a CAD user's plain-English editing instruction into a single JSON object " +
             "matching this exact schema: " +
-            "{\"action\": \"SetProperty|ConstrainAngle|ConstrainParallel|ConstrainPerpendicular|RunMacro|Unrecognized\", " +
+            "{\"action\": \"SetProperty|ConstrainAngle|ConstrainParallel|ConstrainPerpendicular|Transform|RunMacro|Unrecognized\", " +
             "\"target\": {\"kind\": \"selection|named|nearest\", \"name\": string|null}, " +
             "\"parameters\": object, \"confidence\": number}. " +
-            "Return Unrecognized with confidence 0 if the instruction is ambiguous or unsupported. " +
+            "Parameters per action - " +
+            "SetProperty: {\"property\": \"Lineweight|Color|Layer\", \"value\": string} (Lineweight value must be one of " +
+            "LineWeight025|LineWeight035|LineWeight060, mapped from words like thin/light/medium/thick/heavy); " +
+            "ConstrainAngle: {\"degrees\": number, \"reference\": {\"kind\": \"named\", \"name\": string}}; " +
+            "Transform: {\"operation\": \"Rotate\", \"degrees\": number} or {\"operation\": \"Move\", \"dx\": number, \"dy\": number} " +
+            "or {\"operation\": \"Scale\", \"factor\": number} - use Transform for any rotate/move/scale instruction that " +
+            "isn't specifically about matching another entity's angle (that's ConstrainAngle instead); " +
+            "RunMacro: {\"name\": string} (only if the instruction clearly matches a known macro, otherwise prefer Unrecognized). " +
+            "Return Unrecognized with confidence 0 if the instruction is ambiguous, unsupported, or you are not confident. " +
             "Respond with ONLY the JSON object, no prose, no markdown fencing.";
 
         private static string BuildUserPrompt(string instruction, EntityContext context) =>
@@ -96,7 +104,21 @@ namespace Curiosity.Plugin.NlParser
             var parameters = new Dictionary<string, object>();
             foreach (var prop in root.GetProperty("parameters").EnumerateObject())
             {
-                parameters[prop.Name] = prop.Value.ToString();
+                // "reference" (used by ConstrainAngle) is a nested {kind, name} object, not a flat
+                // value - CommandExecutor casts it to EntityReference, so it must be parsed into one
+                // here rather than flattened to a JSON string like every other parameter. Missing
+                // this was a real bug: it would have thrown InvalidCastException the first time
+                // anyone tried an angle-constraint instruction through the LLM tier.
+                if (prop.Name == "reference" && prop.Value.ValueKind == JsonValueKind.Object)
+                {
+                    parameters[prop.Name] = new EntityReference(
+                        prop.Value.GetProperty("kind").GetString() ?? "named",
+                        prop.Value.TryGetProperty("name", out var refNameEl) ? refNameEl.GetString() : null);
+                }
+                else
+                {
+                    parameters[prop.Name] = prop.Value.ToString();
+                }
             }
 
             var confidence = root.GetProperty("confidence").GetDouble();

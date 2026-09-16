@@ -12,6 +12,9 @@ namespace Curiosity.Plugin.NlParser
         ConstrainAngle,
         ConstrainParallel,
         ConstrainPerpendicular,
+        Transform,   // general rotate/move/scale — the "make any edit" catch-all until a more
+                     // specific action earns its own case, per the project owner's ask that this
+                     // not be limited to lineweight-style property edits
         RunMacro,
         Unrecognized
     }

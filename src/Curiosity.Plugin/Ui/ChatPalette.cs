@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Windows;
@@ -24,10 +25,18 @@ namespace Curiosity.Plugin.Ui
         private readonly TextBox _input;
         private readonly TextBox _log;
 
-        private LlmFallbackClient? _llmClient; // constructed lazily once an API key is configured
+        private readonly LlmFallbackClient? _llmClient;
 
         public ChatPalette()
         {
+            // Each user supplies their own key (see README "Why this scope" - no shared/paid backend).
+            // Never hardcode a key here or commit one; ANTHROPIC_API_KEY is read from the environment
+            // AutoCAD itself was launched with.
+            var apiKey = Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY");
+            _llmClient = string.IsNullOrWhiteSpace(apiKey)
+                ? null
+                : new LlmFallbackClient(new HttpClient(), apiKey);
+
             _paletteSet = new PaletteSet("Curiosity")
             {
                 Size = new System.Drawing.Size(340, 500),

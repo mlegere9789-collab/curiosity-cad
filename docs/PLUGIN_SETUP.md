@@ -37,7 +37,13 @@ This repo was authored outside Windows and outside AutoCAD — there is no AutoC
 
 ## Configuring the LLM fallback (optional, needed only for instructions the local matcher doesn't recognize)
 
-Set your own Claude API key as an environment variable (`ANTHROPIC_API_KEY`) before launching AutoCAD — never commit a key to this repo. `ChatPalette` currently does not yet wire this up automatically (see `STATUS.md` — this is the next real gap after the first successful build).
+`ChatPalette` reads your own Claude API key from the `ANTHROPIC_API_KEY` environment variable at startup — never commit a key to this repo. To set it persistently (so it's there every time you launch AutoCAD, not just in one terminal session):
+
+1. In Windows, search **"Environment Variables"** → **"Edit environment variables for your account"**.
+2. Click **New**, Name: `ANTHROPIC_API_KEY`, Value: your actual key, click OK.
+3. **Fully close and reopen AutoCAD** (it needs to relaunch to pick up the new variable — reloading the plugin with `NETLOAD` alone is not enough, since the environment is read once at process start).
+
+Without this set, the chat panel still works for anything the local pattern matcher recognizes (lineweight/color/layer changes, angle-to-reference constraints) — it just can't fall back to the general-purpose tier for phrasings it doesn't recognize, and will tell you so in the panel instead of silently failing.
 
 ## What to actually verify first (in order)
 

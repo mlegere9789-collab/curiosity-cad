@@ -22,18 +22,26 @@ Confirmed real, load-bearing finding from that build: AutoCAD 2027's managed API
 
 **BUILD SUCCEEDED** was confirmed, and then runtime was confirmed too, same session: `NETLOAD` loaded the DLL clean, `CURIOSITY` opened the docked chat panel, and **the spec's first acceptance test passed end to end on real AutoCAD**: with a real line selected, typing "change to medium line weight" into the panel produced `Done (local, confidence 95%)` and the line's actual `Lineweight` property (verified via the AutoCAD Properties palette, Ctrl+1) changed from `ByLayer` to `0.35 mm` — the exact value `LocalPatternMatcher`/`CommandExecutor` map "medium" to. This is the whole pipeline working for real: typed English -> local regex match -> structured `EditIntent` -> AutoCAD `.NET` API transaction -> visible property change -> verified independently in AutoCAD's own UI.
 
-Not yet tested: the second acceptance phrase ("...intersects with the ground line at a 45 degree angle") — this will currently throw, since `CommandExecutor.FindNamedReferenceLine` is an intentional `NotImplementedException` stub (see below).
+Real usage immediately surfaced the next real requirement: the project owner tried "rotatw ccw 10 degrees" (a phrasing the narrow local matcher correctly didn't recognize) and got the honest "no LLM API key configured yet" message — confirming the two-tier fallback behaves exactly as designed, but that tier 2 wasn't actually wired up. Fixed same session, not yet retested on real AutoCAD:
+- `FindNamedReferenceLine` implemented: matches a "named" reference (e.g. "the ground line") to any `Line` whose layer name contains one of the reference's significant words, case-insensitive. First-cut convention, not yet validated against a real drawing.
+- `IntentAction.Transform` added (Rotate/Move/Scale about an entity's own centroid) so the executor can act on instructions beyond property changes and angle constraints — this is what makes "rotate 10 degrees," "move it over," "scale it up" possible in principle, not just lineweight-style edits.
+- `ChatPalette` now actually constructs `LlmFallbackClient`, reading `ANTHROPIC_API_KEY` from the environment at startup (each user supplies their own key — see `docs/PLUGIN_SETUP.md`).
+- Fixed a latent bug in `LlmFallbackClient.ParseModelResponse`: the `reference` parameter (used by `ConstrainAngle`) was being flattened to a JSON string instead of parsed into the `EntityReference` object `CommandExecutor` actually casts it to — would have thrown `InvalidCastException` the first time anyone tried an angle instruction through the LLM tier. Never hit yet since tier 2 wasn't wired up until now.
+
+None of this round has been compiled or run yet — that's the very next step.
 
 ## Honest gaps — what's designed but not implemented or not verified
-- `CommandExecutor.FindNamedReferenceLine` — throws `NotImplementedException` on purpose. How a classmate's drawing actually identifies "the ground line" (a layer name? an xdata tag? text label proximity?) needs a real drawing to decide against, not a guess from outside AutoCAD.
-- `ChatPalette` doesn't yet read an API key or construct `LlmFallbackClient` — it's referenced but never instantiated. Needs to be wired to read `ANTHROPIC_API_KEY` (or a settings UI) once basic local-matcher flow is confirmed working.
-- `MacroRegistry.PurgeUnused` is a rough placeholder (the ObjectIdCollection-building loop is a no-op stub) — needs real logic once compiling against the real `Database.Purge` API is possible.
-- `LlmFallbackClient.ParseModelResponse` assumes a specific Claude response shape; unverified against a real API call.
+- This entire round (Transform action, FindNamedReferenceLine, LLM wiring, the reference-parsing fix) has not been compiled or run yet.
+- `FindNamedReferenceLine`'s layer-name-matching convention is a first guess, not validated against a real drawing — a classmate's actual layer naming habits may need a different strategy.
+- `MacroRegistry.PurgeUnused` is still a rough placeholder (the ObjectIdCollection-building loop is a no-op stub).
+- The LLM tier (API key wiring, response parsing, and the new Transform action in the system prompt) has never been exercised against a real Claude API call.
 
 ## Exact next action
-1. Design and implement `CommandExecutor.FindNamedReferenceLine` so the second acceptance phrase ("...intersects with the ground line at a 45 degree angle") can work at all. Needs a real decision on how a classmate's drawing identifies "the ground line" — simplest first cut: match by an AutoCAD layer named "ground" or "ground line" (case-insensitive), since that's the lowest-friction convention a student would actually use, with a clear error message if no matching layer/entity is found. Implement that, rebuild, retest the second acceptance phrase end to end the same way the first one was just verified (via Properties/inspection, not just the "Done" message).
-2. Once both acceptance phrases pass: wire up `ANTHROPIC_API_KEY` reading in `ChatPalette` and test the tier-2 LLM fallback path with a phrasing the local matcher doesn't recognize.
-3. Expand `LocalPatternMatcher`'s phrasing set based on what real fallback cases actually look like once tier 2 is live, per `docs/ARCHITECTURE.md`'s "grow tier 1 from real tier-2 cases" principle.
+1. Rebuild (`build.bat`) and confirm this round compiles clean.
+2. Retest acceptance phrase 1 ("change to medium line weight") still works after the changes — regression check.
+3. Test acceptance phrase 2 ("...intersects with the ground line at a 45 degree angle") for the first time — needs a second line on a layer with "ground" in its name in the test drawing first.
+4. Set `ANTHROPIC_API_KEY` (see `docs/PLUGIN_SETUP.md`), fully restart AutoCAD, and test a genuinely novel phrasing like "rotate this 10 degrees counterclockwise" to confirm the LLM tier and the new `Transform` action work end to end.
+5. Expand `LocalPatternMatcher`'s phrasing set based on what real tier-2 cases look like once step 4 is live, per `docs/ARCHITECTURE.md`'s "grow tier 1 from real tier-2 cases" principle.
 
 ## Ground rules
 - Don't mark anything "done" here without it actually having run against real AutoCAD (or, for the pure-logic NlParser pieces, a real `dotnet test` run once an SDK is reachable).

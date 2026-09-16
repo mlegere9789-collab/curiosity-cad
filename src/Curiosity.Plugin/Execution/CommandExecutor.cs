@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 using Curiosity.Plugin.NlParser;
 
 namespace Curiosity.Plugin.Execution
@@ -45,6 +47,9 @@ namespace Curiosity.Plugin.Execution
                         break;
                     case IntentAction.ConstrainAngle:
                         ExecuteConstrainAngle(intent, doc, tr);
+                        break;
+                    case IntentAction.Transform:
+                        ExecuteTransform(intent, doc, tr);
                         break;
                     case IntentAction.RunMacro:
                         Macros.MacroRegistry.Run((string)intent.Parameters["name"], doc, tr);
@@ -115,6 +120,43 @@ namespace Curiosity.Plugin.Execution
         }
 
         /// <summary>
+        /// General rotate/move/scale, the catch-all for edits that aren't a simple property change
+        /// or an angle-to-reference constraint. Parameters (per docs/INTENT_SCHEMA.md, extended):
+        /// {"operation": "Rotate", "degrees": &lt;double&gt;} — rotates about the entity's own centroid
+        ///   (geometric extents center), positive = counterclockwise, matching how a person says
+        ///   "rotate 10 degrees" without specifying a pivot.
+        /// {"operation": "Move", "dx": &lt;double&gt;, "dy": &lt;double&gt;} — translates in drawing units.
+        /// {"operation": "Scale", "factor": &lt;double&gt;} — scales about the entity's own centroid.
+        /// </summary>
+        private static void ExecuteTransform(EditIntent intent, Document doc, Transaction tr)
+        {
+            var operation = (string)intent.Parameters["operation"];
+
+            foreach (var id in GetTargetEntityIds(intent.Target, doc, tr))
+            {
+                var entity = (Entity)tr.GetObject(id, OpenMode.ForWrite);
+                var center = entity.GeometricExtents.MinPoint +
+                             (entity.GeometricExtents.MaxPoint - entity.GeometricExtents.MinPoint) * 0.5;
+
+                Matrix3d matrix = operation switch
+                {
+                    "Rotate" => Matrix3d.Rotation(
+                        Convert.ToDouble(intent.Parameters["degrees"]) * Math.PI / 180.0,
+                        Vector3d.ZAxis,
+                        center),
+                    "Move" => Matrix3d.Displacement(new Vector3d(
+                        Convert.ToDouble(intent.Parameters["dx"]),
+                        Convert.ToDouble(intent.Parameters["dy"]),
+                        0)),
+                    "Scale" => Matrix3d.Scaling(Convert.ToDouble(intent.Parameters["factor"]), center),
+                    _ => throw new NotSupportedException($"Transform operation '{operation}' not supported.")
+                };
+
+                entity.TransformBy(matrix);
+            }
+        }
+
+        /// <summary>
         /// Resolves an EntityReference to concrete ObjectIds. "selection" uses the current AutoCAD
         /// pickfirst selection; "named" looks up an entity by a matching xdata/description tag
         /// (see GeometrySolver's reference-lookup convention, still to be finalized against how
@@ -135,13 +177,45 @@ namespace Curiosity.Plugin.Execution
             // entity) is not yet implemented — tracked in STATUS.md.
         }
 
+        /// <summary>
+        /// First-cut lookup strategy, chosen for lowest friction: a "named" reference like "the
+        /// ground line" matches any Line entity whose layer name contains one of the reference
+        /// name's significant words (case-insensitive, ignoring "the"/"line"/etc.). This assumes
+        /// classmates put reference geometry like a ground line on a sensibly-named layer (e.g.
+        /// "Ground" or "Ground Line") rather than relying on drawing-order or xdata tags, which
+        /// nobody sets up manually. Revisit once real classmate drawings show this assumption wrong.
+        /// </summary>
         private static Line? FindNamedReferenceLine(string? name, Document doc, Transaction tr)
         {
-            // Lookup-by-name strategy (xdata tag vs. layer name vs. nearest-labeled-entity heuristic)
-            // is intentionally not finalized yet — needs real classmate drawings to decide against,
-            // not a guess. Tracked in STATUS.md as a Phase 1 decision.
-            throw new NotImplementedException(
-                "Named reference entity lookup (e.g. 'the ground line') needs a real-drawing-informed design decision before implementation.");
+            if (string.IsNullOrWhiteSpace(name))
+                return null;
+
+            var stopWords = new HashSet<string> { "the", "a", "an", "line", "this" };
+            var keywords = name
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(w => w.Trim().ToLowerInvariant())
+                .Where(w => !stopWords.Contains(w))
+                .ToList();
+
+            if (keywords.Count == 0)
+                return null;
+
+            var blockTable = (BlockTable)tr.GetObject(doc.Database.BlockTableId, OpenMode.ForRead);
+            var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+
+            foreach (ObjectId id in modelSpace)
+            {
+                if (tr.GetObject(id, OpenMode.ForRead) is not Line line)
+                    continue;
+
+                var layerRecord = (LayerTableRecord)tr.GetObject(line.LayerId, OpenMode.ForRead);
+                var layerName = layerRecord.Name.ToLowerInvariant();
+
+                if (keywords.Any(k => layerName.Contains(k)))
+                    return line;
+            }
+
+            return null;
         }
     }
 }
