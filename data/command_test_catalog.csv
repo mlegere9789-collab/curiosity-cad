@@ -330,3 +330,670 @@ Y
 ","A PDF file is produced from the current layout (dialog-heavy - flagged as a partial RunNativeCommand case, FILEDIA may need to be 0).",not_tested
 EXPORTPDF,Output,export the drawing to PDF,"EXPORTPDF
 ",A PDF file matching the drawing is produced (file-save dialog - partial case).,not_tested
+DIMBASELINE,Annotation,add a baseline dimension continuing from the selection,"DIMBASELINE
+
+
+",A new dimension chains from the same baseline as the selected dimension.,not_tested
+DIMCONTINUE,Annotation,add a continued dimension from the selection,"DIMCONTINUE
+
+
+",A new dimension continues in line from the selected dimension.,not_tested
+DIMCENTER,Annotation,add a center mark to the selected circle,"DIMCENTER
+
+",A center mark appears at the selected circle's center.,not_tested
+DIMJOGGED,Annotation,add a jogged radius dimension to the selected arc,"DIMJOGGED
+
+
+
+",A jogged radius dimension annotates the selected arc.,not_tested
+DIMORDINATE,Annotation,add an ordinate dimension at the selected point,"DIMORDINATE
+
+
+",An ordinate dimension annotates the X or Y value of the selected point.,not_tested
+DIMSTYLE,Annotation,create a new dimension style called Metric,"DIMSTYLE
+N
+Metric
+
+",A new dimension style named 'Metric' exists.,not_tested
+DIMEDIT,Annotation,rotate the selected dimension text 45 degrees,"DIMEDIT
+R
+45
+
+",The selected dimension's text rotated 45 degrees.,not_tested
+DIMOVERRIDE,Annotation,override the selected dimension's text to say N.T.S.,"DIMOVERRIDE
+DIMTXT
+
+
+",The selected dimension's displayed text/style overrides the style default.,not_tested
+TOLERANCE,Annotation,add a geometric tolerance frame at the selected point,"TOLERANCE
+",A tolerance feature-control frame is placed (dialog-based; flagged partial).,not_tested
+QDIM,Annotation,add quick dimensions to the selection,"QDIM
+
+
+",Dimensions are auto-generated for the selected geometry.,not_tested
+XCLIP,Organization,clip the selected xref to a rectangular boundary,"XCLIP
+
+N
+R
+0,0
+10,10
+",The xref's visible extents are clipped to the given rectangle.,not_tested
+XBIND,Organization,bind the layer named A-WALL from the selected xref,"XBIND
+
+","The named xref-dependent layer becomes a local, bound definition (dialog-based; flagged partial).",not_tested
+REFEDIT,Organization,edit the selected block reference in place,"REFEDIT
+
+
+",The block/xref enters in-place reference-edit mode.,not_tested
+REFCLOSE,Organization,save changes and exit reference edit mode,"REFCLOSE
+S
+",In-place reference edits are saved back to the block/xref definition.,not_tested
+ETRANSMIT,Organization,package the drawing and its dependents for transmittal,"ETRANSMIT
+",A transmittal package (zip) containing the drawing and dependent files is created (dialog-based; flagged partial).,not_tested
+IMAGEATTACH,Organization,"attach the image at C:/photo.jpg at 0,0","IMAGEATTACH
+C:/photo.jpg
+0,0
+1
+0
+","The raster image is attached to the drawing at 0,0.",not_tested
+IMAGECLIP,Organization,clip the selected image to a rectangular boundary,"IMAGECLIP
+
+N
+R
+0,0
+5,5
+",The image's visible area is clipped to the given rectangle.,not_tested
+IMAGEADJUST,Organization,set the selected image's brightness to 70,"IMAGEADJUST
+
+70
+
+
+",The selected image's brightness value changed to 70.,not_tested
+ATTDEF,Organization,"define an attribute tagged ROOMNAME at 0,0","ATTDEF
+
+ROOMNAME
+Room Name
+
+0,0
+0.2
+0
+","A new attribute definition tagged ROOMNAME exists at 0,0.",not_tested
+ATTEDIT,Organization,edit the selected block's attribute value,"ATTEDIT
+
+",The selected block reference's attribute value changed (dialog-based; flagged partial).,not_tested
+EATTEDIT,Organization,edit all attributes of the selected block,"EATTEDIT
+
+",The Enhanced Attribute Editor opens for the selected block (dialog-based; flagged partial).,not_tested
+BATTMAN,Organization,open the block attribute manager,"BATTMAN
+",The Block Attribute Manager dialog opens (dialog-based; flagged partial).,not_tested
+ATTSYNC,Organization,sync attributes for the selected block definition,"ATTSYNC
+N
+
+",All instances of the block update to match its current attribute definitions.,not_tested
+BEDIT,Organization,open the selected block in the block editor,"BEDIT
+
+",The Block Editor opens for the selected block's definition.,not_tested
+BCLOSE,Organization,close the block editor and save changes,"BCLOSE
+","The Block Editor closes, saving changes to the block definition.",not_tested
+BASE,Organization,"set the drawing's insertion base point to 0,0","BASE
+0,0
+","The drawing's base point (INSBASE) is set to 0,0.",not_tested
+GEOMCONSTRAINT,Modify,make the selected lines parallel,"PARALLEL
+
+
+",A parallel geometric constraint links the two selected lines.,not_tested
+DIMCONSTRAINT,Modify,add a dimensional constraint of 5 to the selection,"DCLINEAR
+
+
+5
+",A dimensional constraint of value 5 controls the selected geometry.,not_tested
+AUTOCONSTRAIN,Modify,auto-constrain the selection,"AUTOCONSTRAIN
+
+
+",Applicable geometric constraints are automatically applied to the selection.,not_tested
+CONSTRAINTBAR,Settings,show constraint bars for the selection,"CONSTRAINTBAR
+
+
+",Constraint bar icons appear on the selected geometry.,not_tested
+DELCONSTRAINT,Modify,remove all constraints from the selection,"DELCONSTRAINT
+
+",All geometric/dimensional constraints on the selection are removed.,not_tested
+PARAMETERS,Organization,open the parameters manager,"PARAMETERS
+",The Parameters Manager palette opens listing drawing parameters.,not_tested
+RENDER,3D Modeling,render the current view,"RENDER
+",A rendered image of the current view is produced in the Render window.,not_tested
+RPREF,Settings,open the advanced render settings,"RPREF
+",The Render Presets Manager opens (dialog-based; flagged partial).,not_tested
+MATERIALS,3D Modeling,open the materials browser,"MATERIALS
+",The Materials Browser palette opens.,not_tested
+MATBROWSEROPEN,3D Modeling,open the materials browser palette,"MATBROWSEROPEN
+",The Materials Browser palette opens.,not_tested
+LIGHT,3D Modeling,"add a point light at 0,0,5","POINTLIGHT
+0,0,5
+
+","A new point light exists at 0,0,5.",not_tested
+VISUALSTYLES,View,switch the current view to realistic visual style,"VSCURRENT
+R
+",The active viewport's visual style is now Realistic.,not_tested
+RENDERCROP,3D Modeling,render just a cropped region of the view,"RENDERCROP
+
+
+",Only the cropped region of the view is rendered.,not_tested
+SHOWMAT,Organization,show the material assigned to the selection,"SHOWMAT
+
+",The material name assigned to the selected object is reported.,not_tested
+SHEETSET,Organization,open the sheet set manager,"SHEETSET
+",The Sheet Set Manager palette opens.,not_tested
+NEWSHEETSET,Organization,create a new sheet set,"NEWSHEETSET
+",The Create Sheet Set wizard opens (dialog-based; flagged partial).,not_tested
+PUBLISH,Output,publish the sheet set to PDF,"PUBLISH
+",The Publish dialog opens for batch-plotting the sheet set (dialog-based; flagged partial).,not_tested
+POINTCLOUDATTACH,3D Modeling,attach the point cloud file at C:/scan.rcp,"POINTCLOUDATTACH
+C:/scan.rcp
+0,0
+1
+0
+",The point cloud is attached to the drawing.,not_tested
+POINTCLOUDINDEX,3D Modeling,index the point cloud file at C:/scan.e57,"POINTCLOUDINDEX
+C:/scan.e57
+",An indexed .rcp/.rcs file is generated from the raw scan data.,not_tested
+DATAEXTRACTION,Organization,extract block data from the drawing to a table,"DATAEXTRACTION
+",The Data Extraction wizard opens (dialog-based; flagged partial).,not_tested
+DATALINK,Organization,create a data link to the spreadsheet at C:/data.xlsx,"DATALINK
+",The Data Link Manager opens to configure the spreadsheet link (dialog-based; flagged partial).,not_tested
+DATALINKUPDATE,Organization,update the data link in the selected table,"DATALINKUPDATE
+
+",The selected table's values refresh from its linked spreadsheet.,not_tested
+TABLEEXPORT,Output,export the selected table to CSV,"TABLEEXPORT
+
+",A CSV file containing the selected table's data is produced (dialog-based; flagged partial).,not_tested
+DBCONNECT,Organization,open the database connection manager,"DBCONNECT
+",The dbConnect Manager palette opens.,not_tested
+CHECKSTANDARDS,Organization,check the drawing against the linked CAD standards file,"CHECKSTANDARDS
+",A report of standards violations (layers/linetypes/styles) is generated.,not_tested
+STANDARDS,Organization,link a CAD standards file to the drawing,"STANDARDS
+",The Configure Standards dialog opens to link a .dws file (dialog-based; flagged partial).,not_tested
+AUDIT,Organization,audit the drawing for errors,"AUDIT
+Y
+",The drawing database is checked and any errors found are fixed/reported.,not_tested
+RECOVER,Organization,recover the drawing at C:/damaged.dwg,"RECOVER
+C:/damaged.dwg
+","A repaired copy of the drawing opens, with recovery messages logged.",not_tested
+PURGEACAD,Organization,purge all unused named objects with no confirmation,"-PURGE
+A
+
+N
+",All unused blocks/layers/styles are removed without individual prompts.,not_tested
+LIST,Inquiry,list the properties of the selection,"LIST
+
+",Full property data for the selected object prints to the text window.,not_tested
+DIST,Inquiry,report the distance between two picked points,"DIST
+0,0
+5,5
+",The distance and angle between the two points is reported.,not_tested
+AREA,Inquiry,report the area of the selected closed shape,"AREA
+O
+
+",The area and perimeter of the selected closed object is reported.,not_tested
+MASSPROP,Inquiry,report the mass properties of the selected solid,"MASSPROP
+
+
+N
+","Volume, centroid, and other mass properties of the selected solid are reported.",not_tested
+ID,Inquiry,report the coordinates of the selected point,"ID
+
+","The X,Y,Z coordinates of the picked point are reported.",not_tested
+QUICKCALC,Inquiry,open the quick calculator,"QUICKCALC
+",The QuickCalc calculator palette opens.,not_tested
+LAYERSTATE,Organization,save the current layer visibility as a layer state called Framing,"LAYERSTATE
+S
+Framing
+
+",A new named layer state called 'Framing' captures current layer settings.,not_tested
+LAYFRZ,Organization,freeze the layer of the selection,"LAYFRZ
+
+
+",The selected object's layer is now frozen.,not_tested
+LAYOFF,Organization,turn off the layer of the selection,"LAYOFF
+
+
+",The selected object's layer is now off.,not_tested
+LAYISO,Organization,isolate the layer of the selection,"LAYISO
+
+
+",Only the selected object's layer remains visible; others turn off/lock.,not_tested
+LAYUNISO,Organization,restore all layers hidden by layer isolate,"LAYUNISO
+",Layers hidden by LAYISO become visible again.,not_tested
+LAYLCK,Organization,lock the layer of the selection,"LAYLCK
+
+",The selected object's layer is now locked.,not_tested
+LAYULK,Organization,unlock the layer of the selection,"LAYULK
+
+",The selected object's layer is now unlocked.,not_tested
+LAYMCH,Organization,match the selection's layer to another object's layer,"LAYMCH
+
+
+
+",The selected object moves to the same layer as the reference object.,not_tested
+LAYDEL,Organization,delete the layer of the selection and everything on it,"LAYDEL
+
+
+Y
+","The selected object's layer, and everything on it, is deleted from the drawing.",not_tested
+LAYMRG,Organization,merge the selected layer into another layer,"LAYMRG
+
+
+
+Y
+",Objects on the source layer move to the target layer; the source layer is removed.,not_tested
+STYLE,Annotation,create a new text style called Titles using Arial,"STYLE
+Titles
+Arial.ttf
+
+
+
+
+
+",A new text style named 'Titles' using the Arial font exists.,not_tested
+SPELL,Annotation,spell-check the drawing's text,"SPELL
+",A spell-check pass runs over all text in the drawing (dialog-based; flagged partial).,not_tested
+FIND,Annotation,find and replace the text Old with New,"FIND
+Old
+New
+",Occurrences of 'Old' in the drawing's text are replaced with 'New' (dialog-based; flagged partial).,not_tested
+SCALETEXT,Annotation,scale the selected text to height 0.5,"SCALETEXT
+
+E
+
+0.5
+",The selected text's height changes to 0.5.,not_tested
+JUSTIFYTEXT,Annotation,justify the selected text as centered,"JUSTIFYTEXT
+
+C
+",The selected text's justification changes to Center.,not_tested
+TEXTFIT,Annotation,fit the selected text between two points,"TEXTFIT
+
+0,0
+5,0
+",The selected text is stretched/compressed to fit between the two points.,not_tested
+UNDO,Utility,undo the last drawing edit,"UNDO
+1
+",The most recent drawing edit is reversed.,not_tested
+REDO,Utility,redo the last undone edit,"REDO
+",The most recently undone edit is reapplied.,not_tested
+OOPS,Utility,restore the last erased objects,"OOPS
+",The most recently erased object(s) reappear in the drawing.,not_tested
+SELECT,Utility,select all objects on the current layer,"SELECT
+ALL
+
+",All objects meeting the given filter become the active (pickfirst) selection.,not_tested
+FILTER,Utility,build a selection filter for circles only,"FILTER
+",The Object Selection Filters dialog opens to build a reusable filter (dialog-based; flagged partial).,not_tested
+QSELECT,Utility,select all objects with color red,"QSELECT
+",The Quick Select dialog opens to filter by property (dialog-based; flagged partial).,not_tested
+PROPERTIES,Utility,open the properties palette for the selection,"PROPERTIES
+",The Properties palette opens showing the selected object's data.,not_tested
+CHPROP,Utility,change the selection's color to red,"CHPROP
+
+C
+Red
+
+",The selected object's color changes to red.,not_tested
+DDEDIT,Utility,edit the selected text's content,"DDEDIT
+
+",The selected text/attribute/dimension's content can be edited in place.,not_tested
+OVERKILL,Utility,remove duplicate overlapping objects from the selection,"OVERKILL
+
+
+
+",Duplicate/overlapping objects in the selection are removed.,not_tested
+WIPEOUT,2D Drafting,draw a wipeout covering the selection's area,"WIPEOUT
+
+
+",A new wipeout object masks the area behind it.,not_tested
+BOUNDARY,2D Drafting,trace the selected closed area into a new polyline,"BOUNDARY
+
+
+",A new closed polyline traces the boundary at the picked internal point.,not_tested
+REGION,3D Modeling,convert the selected closed shape into a region,"REGION
+
+",The selected closed 2D shape becomes a Region object.,not_tested
+MEASUREGEOM,Inquiry,measure the angle of the selection,"MEASUREGEOM
+A
+
+
+
+",The angle of the selected geometry is reported.,not_tested
+DIVIDE,2D Drafting,divide the selection into 5 equal segments with points,"DIVIDE
+
+5
+",5 point objects mark equal divisions along the selected object.,not_tested
+MEASURE,2D Drafting,place points every 2 units along the selection,"MEASURE
+
+2
+",Point objects mark 2-unit intervals along the selected object.,not_tested
+SECTIONPLANE,3D Modeling,add a section plane through the selection,"SECTIONPLANE
+
+
+",A live section-plane object cuts through the selected 3D geometry.,not_tested
+FLATSHOT,3D Modeling,flatten the current 3D view into 2D lines,"FLATSHOT
+
+
+",A new 2D representation of the current 3D view is created.,not_tested
+BOX,3D Modeling,"draw a box from 0,0,0 with length 5 width 3 height 2","BOX
+0,0,0
+L
+5
+3
+2
+",A new 3D solid box exists with those dimensions.,not_tested
+SPHERE,3D Modeling,"draw a sphere at 0,0,0 with radius 3","SPHERE
+0,0,0
+3
+",A new 3D solid sphere exists with radius 3.,not_tested
+CYLINDER,3D Modeling,"draw a cylinder at 0,0,0 with radius 2 and height 5","CYLINDER
+0,0,0
+2
+5
+",A new 3D solid cylinder exists with those dimensions.,not_tested
+CONE,3D Modeling,"draw a cone at 0,0,0 with base radius 3 and height 5","CONE
+0,0,0
+3
+5
+",A new 3D solid cone exists with those dimensions.,not_tested
+WEDGE,3D Modeling,"draw a wedge from 0,0,0 with length 5 width 3 height 2","WEDGE
+0,0,0
+L
+5
+3
+2
+",A new 3D solid wedge exists with those dimensions.,not_tested
+TORUS,3D Modeling,"draw a torus at 0,0,0 with radius 5 and tube radius 1","TORUS
+0,0,0
+5
+1
+",A new 3D solid torus exists with those dimensions.,not_tested
+PYRAMID,3D Modeling,"draw a 4-sided pyramid at 0,0,0 with radius 3 and height 5","PYRAMID
+4
+0,0,0
+3
+5
+",A new 3D solid pyramid exists with those dimensions.,not_tested
+POLYSOLID,3D Modeling,"draw a polysolid wall from 0,0 to 10,0 height 8","POLYSOLID
+H
+8
+0,0
+10,0
+
+",A new wall-like polysolid exists between those points at 8 units tall.,not_tested
+HELIX,3D Modeling,"draw a helix at 0,0,0 with base radius 2 top radius 2 and height 10","HELIX
+0,0,0
+2
+2
+10
+",A new helix curve exists with those dimensions.,not_tested
+SWEEP,3D Modeling,sweep the selected profile along the selected path,"SWEEP
+
+
+
+",The selected 2D profile becomes a 3D solid swept along the path.,not_tested
+LOFT,3D Modeling,loft between the selected cross-sections,"LOFT
+
+
+CR
+
+",A new 3D solid/surface is created lofted between the selected profiles.,not_tested
+PRESSPULL,3D Modeling,press-pull the selected face to extrude it 3 units,"PRESSPULL
+
+3
+",The selected planar face/region extrudes by 3 units.,not_tested
+SOLIDEDIT,3D Modeling,shell the selected solid with a 0.1 wall thickness,"SOLIDEDIT
+B
+S
+
+
+0.1
+X
+X
+",The selected solid becomes hollow with a 0.1 wall thickness.,not_tested
+FILLETEDGE,3D Modeling,fillet the selected solid edge with a 0.5 radius,"FILLETEDGE
+
+R
+0.5
+
+",The selected 3D solid edge is rounded with a 0.5 radius.,not_tested
+CHAMFEREDGE,3D Modeling,chamfer the selected solid edge with a 0.25 distance,"CHAMFEREDGE
+
+D
+0.25
+0.25
+
+",The selected 3D solid edge is beveled with a 0.25 distance.,not_tested
+THICKEN,3D Modeling,thicken the selected surface by 0.5,"THICKEN
+
+0.5
+",The selected surface becomes a solid of 0.5 thickness.,not_tested
+CONVTOSOLID,3D Modeling,convert the selection to a solid,"CONVTOSOLID
+
+",The selected mesh/closed surface becomes a 3D solid.,not_tested
+CONVTOSURFACE,3D Modeling,convert the selection to a surface,"CONVTOSURFACE
+
+",The selected mesh/2D region becomes a surface.,not_tested
+MESH,3D Modeling,"draw a mesh box at 0,0,0 with length 5 width 3 height 2","MESH
+BO
+0,0,0
+L
+5
+3
+2
+",A new mesh box exists with those dimensions.,not_tested
+MESHSMOOTH,3D Modeling,convert the selected mesh to a smoothed solid,"MESHSMOOTH
+
+",The selected mesh becomes a smoothed solid/surface.,not_tested
+SURFNETWORK,3D Modeling,create a network surface from the selected curves,"SURFNETWORK
+
+
+",A new surface is created across the selected network of curves.,not_tested
+SURFPATCH,3D Modeling,cap the selected closed edge loop with a surface,"SURFPATCH
+
+
+",A new surface caps the selected closed edge loop.,not_tested
+SURFOFFSET,3D Modeling,offset the selected surface by 1 unit,"SURFOFFSET
+
+1
+",A parallel copy of the selected surface exists 1 unit away.,not_tested
+SURFTRIM,3D Modeling,trim the selected surface with the selected cutting curve,"SURFTRIM
+
+
+
+",The selected surface is trimmed at the cutting curve.,not_tested
+3DALIGN,3D Modeling,align the selection to the selected target points,"3DALIGN
+
+
+
+
+",The selected 3D object is repositioned to align with the target points.,not_tested
+3DMIRROR,3D Modeling,mirror the selection across the selected plane,"3DMIRROR
+
+
+
+
+N
+",A mirrored copy of the selection exists across the given 3D plane.,not_tested
+3DARRAY,3D Modeling,array the selection in a 2 by 2 by 2 3D grid,"3DARRAY
+
+R
+2
+2
+2
+5
+5
+5
+",8 copies exist arranged in a 2x2x2 3D grid.,not_tested
+ALIGN,Modify,align the selection to the selected target points,"ALIGN
+
+
+
+
+
+N
+",The selected object is repositioned/scaled to align with the target points.,not_tested
+UCS,3D Modeling,set the UCS origin to the selected point,"UCS
+
+",The current User Coordinate System origin moves to the picked point.,not_tested
+UCSMAN,3D Modeling,save the current UCS as Front,"UCSMAN
+S
+Front
+",A new named UCS called 'Front' exists.,not_tested
+VPOINT,View,set the 3D view direction to the southeast isometric,"VPOINT
+1,-1,1
+",The current view direction is now the southeast isometric.,not_tested
+DVIEW,View,set up a perspective view of the selection,"DVIEW
+
+D
+
+",The current viewport switches to a perspective camera view.,not_tested
+CAMERA,View,"place a camera at 10,10,5 looking at 0,0,0","CAMERA
+10,10,5
+0,0,0
+","A new named camera exists at 10,10,5 targeting the origin.",not_tested
+3DORBIT,View,orbit the current 3D view,"3DFORBIT
+",Interactive 3D orbit mode is enabled for the current viewport.,not_tested
+NAVSWHEEL,View,show the steering wheel navigation tool,"NAVSWHEEL
+",The SteeringWheel navigation aid appears in the viewport.,not_tested
+GEOGRAPHICLOCATION,Organization,set the geographic location of the drawing,"GEOGRAPHICLOCATION
+",The drawing's real-world latitude/longitude is set (dialog/map-picker based; flagged partial).,not_tested
+MAPIMPORT,Organization,import GIS data into the drawing,"MAPIMPORT
+",The Import Location Data dialog opens (dialog-based; flagged partial).,not_tested
+GEOMARKPOINT,Annotation,add a geolocation marker at the selected point,"GEOMARKPOINT
+
+",A geographic marker is placed at the picked point.,not_tested
+PAGESETUP,Output,open the page setup manager for the current layout,"PAGESETUP
+",The Page Setup Manager opens for the current layout (dialog-based; flagged partial).,not_tested
+PLOTSTYLE,Output,assign the plot style ByLayer to the selection,"PLOTSTYLE
+",The Current Plot Style dialog opens to assign a plot style (dialog-based; flagged partial).,not_tested
+STYLESMANAGER,Output,open the plot style manager,"STYLESMANAGER
+",A Windows Explorer window opens showing available plot style tables (dialog-based; flagged partial).,not_tested
+VIEWPORTS,View,configure named viewport configurations,"VPORTS
+",The Viewports dialog opens to configure named viewport layouts (dialog-based; flagged partial).,not_tested
+MVIEW,View,"create a new layout viewport from 0,0 to 10,10","MVIEW
+0,0
+10,10
+","A new layout viewport exists showing model space, bounded by those corners.",not_tested
+VPCLIP,View,clip the selected viewport to a custom boundary,"VPCLIP
+
+
+",The selected layout viewport's visible area is clipped to a new boundary.,not_tested
+VPLOCK,View,lock the selected viewport's display,"VPLOCK
+
+
+",The selected layout viewport's zoom/pan is now locked.,not_tested
+CUI,Settings,open the customize user interface editor,"CUI
+",The Customize User Interface editor opens (dialog-based; flagged partial).,not_tested
+TOOLBAR,Settings,show the Draw toolbar,"TOOLBAR
+Draw
+Show
+",The Draw toolbar becomes visible.,not_tested
+TOOLPALETTES,Settings,open the tool palettes window,"TOOLPALETTES
+",The Tool Palettes window opens.,not_tested
+OPTIONS,Settings,open the program options dialog,"OPTIONS
+",The Options dialog opens (dialog-based; flagged partial).,not_tested
+SYSVARMONITOR,Settings,open the system variable monitor,"SYSVARMONITOR
+",The System Variable Monitor palette opens.,not_tested
+APPLOAD,Settings,load a custom AutoLISP application,"APPLOAD
+",The Load/Unload Applications dialog opens (dialog-based; flagged partial).,not_tested
+VLIDE,Settings,open the Visual LISP editor,"VLIDE
+",The Visual LISP Integrated Development Environment opens.,not_tested
+SCRIPT,Utility,run the script file at C:/setup.scr,"SCRIPT
+C:/setup.scr
+",The commands in the named script file execute in sequence.,not_tested
+MLSTYLE,Settings,create a new multiline style called DoubleWall,"MLSTYLE
+N
+DoubleWall
+
+
+",A new multiline style named 'DoubleWall' exists.,not_tested
+MLEDIT,Modify,edit the selected multiline intersection as a closed cross,"MLEDIT
+
+
+",The selected multiline intersection is edited to a closed-cross join.,not_tested
+DDPTYPE,Settings,set the point display style to an X mark,"DDPTYPE
+",The PDMODE point-display style changes to an X mark (dialog-based; flagged partial).,not_tested
+HATCHEDIT,Modify,edit the selected hatch's pattern scale to 2,"HATCHEDIT
+
+S
+2
+",The selected hatch's pattern scale changes to 2.,not_tested
+GRADIENT,Annotation,fill the selected boundary with a gradient,"GRADIENT
+
+
+",A new gradient fill covers the selected closed boundary.,not_tested
+SPLINEDIT,Modify,add a fit point to the selected spline,"SPLINEDIT
+
+F
+A
+
+",A new fit point is added to the selected spline.,not_tested
+PEDITJOIN,Modify,join the selected lines into one polyline,"PEDIT
+
+Y
+J
+
+
+",The selected separate line entities merge into a single polyline.,not_tested
+REVCLOUDPROP,Annotation,set the revision cloud arc length to 0.5,"REVCLOUD
+A
+0.5
+
+",New revision clouds now use a 0.5 arc length.,not_tested
+XLINE,2D Drafting,"draw a construction line at a 30 degree angle through 0,0","XLINE
+A
+30
+0,0
+
+","A new infinite construction line passes through 0,0 at 30 degrees.",not_tested
+RAY,2D Drafting,"draw a ray from 0,0 through 5,5","RAY
+0,0
+5,5
+","A new one-directional infinite ray exists from 0,0 through 5,5.",not_tested
+DIVIDE,2D Drafting,insert a block at 5 equal divisions of the selection,"DIVIDE
+
+B
+
+Y
+5
+",A block instance is placed at each of 5 equal divisions along the selected object.,not_tested
+STRETCH,Modify,stretch the selection to a new width of 10,"STRETCH
+
+10,0
+",The selected entity's width changed as a result of the stretch.,not_tested
+FILLETRAD,Settings,set the default fillet radius to 0.5,"FILLETRAD
+0.5
+",SETVAR FILLETRAD now reports 0.5.,not_tested
+CHAMFERA,Settings,set the first chamfer distance to 0.25,"CHAMFERA
+0.25
+",SETVAR CHAMFERA now reports 0.25.,not_tested
+DIMSCALE,Settings,set the overall dimension scale to 2,"DIMSCALE
+2
+",SETVAR DIMSCALE now reports 2.,not_tested
+LTSCALE,Settings,set the global linetype scale to 0.5,"LTSCALE
+0.5
+","SETVAR LTSCALE now reports 0.5, and non-continuous linetypes render at that scale.",not_tested
+PICKBOX,Settings,set the pick box size to 5,"PICKBOX
+5
+","SETVAR PICKBOX now reports 5, and the on-screen pick box appears larger.",not_tested
+GRIDMODE,Settings,turn on the drawing grid,"GRIDMODE
+1
+","SETVAR GRIDMODE now reports 1, and the grid displays in the viewport.",not_tested
+ORTHOMODE,Settings,turn on ortho mode,"ORTHOMODE
+1
+","SETVAR ORTHOMODE now reports 1, constraining cursor movement to orthogonal.",not_tested
+OSMODE,Settings,enable endpoint and center object snaps,"OSMODE
+33
+",SETVAR OSMODE now reports 33 (endpoint + center running snaps active).,not_tested
+SAVETIME,Settings,set the autosave interval to 10 minutes,"SAVETIME
+10
+",SETVAR SAVETIME now reports 10.,not_tested
+MIRRTEXT,Settings,turn off text mirroring,"MIRRTEXT
+0
+",SETVAR MIRRTEXT now reports 0; mirrored text stays readable instead of flipping.,not_tested

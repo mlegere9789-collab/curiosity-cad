@@ -26,9 +26,10 @@ Some commands cannot be driven purely through `SendStringToExecute` text, for re
 
 ## Current coverage
 
-- **First batch (this pass): 70 core commands** across 2D Drafting, Modify, Annotation, Organization, View, Settings, 3D Modeling, and Output — see `data/command_test_catalog.csv`.
-- **Remaining toward ~1,000 core commands**: the rest of AutoCAD's core command set beyond this first batch (see `docs/archive-fullbuild-cad-concept/COMMAND_PARITY_CHECKLIST.md` for the ~150-command aliased-core reference this expands from).
-- **Remaining toward ~1,500 total**: the full command sets of each specialized toolset (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design), not yet started.
-- **System variables (~900)**: not yet catalogued as test rows — these are far more uniformly text-drivable (`SETVAR name value`), so they're lower-risk and lower-priority than commands; tracked as a later pass in `STATUS.md`.
+**240 rows** (as of the most recent research pass) across: 2D Drafting, Modify, Annotation, Organization, View, Settings, 3D Modeling, Output, Inquiry, and Utility — see `data/command_test_catalog.csv`. Includes the first 10 system variables as a proof-of-concept for that pass (see below).
+
+- **Toward ~1,000 core commands**: 240 rows in, well over 700 core commands remain — this is genuinely a large, ongoing research task, not a one-session job, and is being worked in batches across sessions (see `STATUS.md` for the live count and what the next batch covers).
+- **Toward ~1,500 total**: the full command sets of each specialized toolset (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design) haven't been started yet — planned after core commands are substantially further along.
+- **System variables (~900)**: a first 10 added as a format proof-of-concept (`FILLETRAD`, `DIMSCALE`, `OSMODE`, etc. — the `SETVAR name value` pattern). The full ~900 is planned as a dedicated pass once core commands are well underway, since these are lower-risk (far more uniformly text-drivable) than commands.
 
 This file and the CSV are updated every time a new batch is researched — check `STATUS.md` for exactly how far the catalog currently reaches and what the next batch covers.
