@@ -20,20 +20,20 @@
 ## First real build: 2026-09-15/16, on the project owner's real Windows machine + real AutoCAD 2027
 Confirmed real, load-bearing finding from that build: AutoCAD 2027's managed API (`AcMgd`/`AcDbMgd`/`AcCoreMgd`) targets **.NET 10**, not .NET Framework 4.8 as originally assumed. The project went net48 -> net8.0-windows -> net10.0-windows across three real build attempts before compiling clean. `Curiosity.Plugin.csproj` now targets `net10.0-windows`; the DLL lands at `src/Curiosity.Plugin/bin/Debug/net10.0-windows/Curiosity.Plugin.dll` (not `net48` — `build.bat`'s success message had a stale path, now fixed). Also fixed by that build: a missing `UseWindowsForms` reference, an `init`-vs-`set` property mismatch (CS8852), an `Application` namespace collision between AutoCAD and WinForms (CS0104), and a literal double-hyphen in an XML comment that broke MSBuild's parser (MSB4025) — all real bugs this environment could never have found without an actual compiler and an actual AutoCAD install.
 
-**BUILD SUCCEEDED** was confirmed. Not yet confirmed: that the DLL actually loads via `NETLOAD` and that `CURIOSITY` opens the panel — that's the very next step.
+**BUILD SUCCEEDED** was confirmed, and then runtime was confirmed too, same session: `NETLOAD` loaded the DLL clean, `CURIOSITY` opened the docked chat panel, and **the spec's first acceptance test passed end to end on real AutoCAD**: with a real line selected, typing "change to medium line weight" into the panel produced `Done (local, confidence 95%)` and the line's actual `Lineweight` property (verified via the AutoCAD Properties palette, Ctrl+1) changed from `ByLayer` to `0.35 mm` — the exact value `LocalPatternMatcher`/`CommandExecutor` map "medium" to. This is the whole pipeline working for real: typed English -> local regex match -> structured `EditIntent` -> AutoCAD `.NET` API transaction -> visible property change -> verified independently in AutoCAD's own UI.
+
+Not yet tested: the second acceptance phrase ("...intersects with the ground line at a 45 degree angle") — this will currently throw, since `CommandExecutor.FindNamedReferenceLine` is an intentional `NotImplementedException` stub (see below).
 
 ## Honest gaps — what's designed but not implemented or not verified
-- `NETLOAD` + running the `CURIOSITY` command has not been confirmed yet — compiling and running are different things.
 - `CommandExecutor.FindNamedReferenceLine` — throws `NotImplementedException` on purpose. How a classmate's drawing actually identifies "the ground line" (a layer name? an xdata tag? text label proximity?) needs a real drawing to decide against, not a guess from outside AutoCAD.
 - `ChatPalette` doesn't yet read an API key or construct `LlmFallbackClient` — it's referenced but never instantiated. Needs to be wired to read `ANTHROPIC_API_KEY` (or a settings UI) once basic local-matcher flow is confirmed working.
 - `MacroRegistry.PurgeUnused` is a rough placeholder (the ObjectIdCollection-building loop is a no-op stub) — needs real logic once compiling against the real `Database.Purge` API is possible.
 - `LlmFallbackClient.ParseModelResponse` assumes a specific Claude response shape; unverified against a real API call.
 
 ## Exact next action
-1. In AutoCAD 2027: run `NETLOAD`, browse to `src\Curiosity.Plugin\bin\Debug\net10.0-windows\Curiosity.Plugin.dll`, load it. Report whether it loads clean or throws (a common next failure at this stage: a runtime `FileNotFoundException`/`FileLoadException` if AutoCAD can't find a dependency DLL next to the plugin — if that happens, report the exact exception text).
-2. Run the `CURIOSITY` command, confirm the docked chat panel actually appears.
-3. Select a line in a drawing, type "change to medium line weight" into the panel, confirm the lineweight actually changes.
-4. Only after 1–3 succeed: tackle the `FindNamedReferenceLine` design decision (needs a real drawing to test naming conventions against) and wire up the LLM fallback with a real API key.
+1. Design and implement `CommandExecutor.FindNamedReferenceLine` so the second acceptance phrase ("...intersects with the ground line at a 45 degree angle") can work at all. Needs a real decision on how a classmate's drawing identifies "the ground line" — simplest first cut: match by an AutoCAD layer named "ground" or "ground line" (case-insensitive), since that's the lowest-friction convention a student would actually use, with a clear error message if no matching layer/entity is found. Implement that, rebuild, retest the second acceptance phrase end to end the same way the first one was just verified (via Properties/inspection, not just the "Done" message).
+2. Once both acceptance phrases pass: wire up `ANTHROPIC_API_KEY` reading in `ChatPalette` and test the tier-2 LLM fallback path with a phrasing the local matcher doesn't recognize.
+3. Expand `LocalPatternMatcher`'s phrasing set based on what real fallback cases actually look like once tier 2 is live, per `docs/ARCHITECTURE.md`'s "grow tier 1 from real tier-2 cases" principle.
 
 ## Ground rules
 - Don't mark anything "done" here without it actually having run against real AutoCAD (or, for the pure-logic NlParser pieces, a real `dotnet test` run once an SDK is reachable).
