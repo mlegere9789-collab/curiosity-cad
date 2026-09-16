@@ -1,10 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Went net48 -> net8.0-windows -> net10.0-windows, each step corrected by a real build error
+    <!-- Went net48 to net8.0-windows to net10.0-windows, each step corrected by a real build error
          against a real AutoCAD 2027 install. AcMgd/AcDbMgd/AcCoreMgd there are compiled directly
          against System.Runtime 10.0.0.0 (CS1705 confirmed this exactly, twice, first against net48's
-         facade then against net8.0's) -- AutoCAD 2027 has moved its managed API onto .NET 10. -->
+         facade then against net8.0's). AutoCAD 2027 has moved its managed API onto .NET 10.
+         Note for future edits: a literal double hyphen character anywhere in an XML comment breaks
+         MSBuild parsing with error MSB4025, confirmed by a real build. Do not write two consecutive
+         hyphen characters inside any csproj comment. -->
     <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
