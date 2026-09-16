@@ -85,7 +85,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo BUILD SUCCEEDED.
-echo Your DLL is at: %~dp0src\Curiosity.Plugin\bin\Debug\net48\Curiosity.Plugin.dll
+echo Your DLL is at: %~dp0src\Curiosity.Plugin\bin\Debug\net10.0-windows\Curiosity.Plugin.dll
 echo.
 echo Next: open AutoCAD, run the NETLOAD command, browse to that file, then run the CURIOSITY command.
 pause
