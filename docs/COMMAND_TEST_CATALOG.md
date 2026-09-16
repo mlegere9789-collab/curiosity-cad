@@ -30,10 +30,10 @@ Some commands cannot be driven purely through `SendStringToExecute` text, for re
 
 ## Current coverage
 
-**240 rows** (as of the most recent research pass) across: 2D Drafting, Modify, Annotation, Organization, View, Settings, 3D Modeling, Output, Inquiry, and Utility — see `data/command_test_catalog.csv`. Includes the first 10 system variables as a proof-of-concept for that pass (see below).
+**455 rows** (as of the most recent research pass) across: 2D Drafting, Modify, Annotation, Organization, View, Settings, 3D Modeling, Output, Inquiry, Utility, and all 7 specialized toolsets — see `data/command_test_catalog.csv`.
 
-- **Toward ~1,000 core commands**: 240 rows in, well over 700 core commands remain — this is genuinely a large, ongoing research task, not a one-session job, and is being worked in batches across sessions (see `STATUS.md` for the live count and what the next batch covers).
-- **Toward ~1,500 total**: the full command sets of each specialized toolset (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design) haven't been started yet — planned after core commands are substantially further along.
-- **System variables (~900)**: a first 10 added as a format proof-of-concept (`FILLETRAD`, `DIMSCALE`, `OSMODE`, etc. — the `SETVAR name value` pattern). The full ~900 is planned as a dedicated pass once core commands are well underway, since these are lower-risk (far more uniformly text-drivable) than commands.
+- **Toward ~1,000 core commands**: several hundred core commands still remain uncatalogued — ongoing.
+- **Toward ~1,500 total**: all 7 specialized toolsets (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design) now have a first representative batch each — **read the "Confidence levels" section above before trusting these**, they're real but lower-confidence than core rows and will need more correction once tested.
+- **System variables (~900)**: roughly 70 now cataloged across the settings-focused batches (unit/precision, selection/grip behavior, display/graphics, xref/demand-loading, layer overrides, and more) — the uniform `SETVAR name value` pattern makes these lower-risk; several hundred more remain.
 
 This file and the CSV are updated every time a new batch is researched — check `STATUS.md` for exactly how far the catalog currently reaches and what the next batch covers.

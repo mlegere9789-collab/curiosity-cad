@@ -1530,3 +1530,180 @@ RCLEAN,Raster Design Toolset,clean up noise in the selected raster image,"RCLEAN
 RTRACE,Raster Design Toolset,manually trace over the selected raster line,"RTRACE
 
 ",A new vector line/polyline is drawn tracing the selected raster feature.,not_tested
+AUNITS,Settings,set angular units display to grads,"AUNITS
+3
+",SETVAR AUNITS now reports 3 (grads).,not_tested
+AUPREC,Settings,set angular units precision to 2 decimal places,"AUPREC
+2
+",SETVAR AUPREC now reports 2.,not_tested
+LUNITS,Settings,set linear units display to architectural,"LUNITS
+4
+",SETVAR LUNITS now reports 4 (architectural).,not_tested
+ANGBASE,Settings,set angle 0 direction to point north,"ANGBASE
+90
+",SETVAR ANGBASE now reports 90 (north).,not_tested
+ANGDIR,Settings,set angles to measure clockwise,"ANGDIR
+1
+",SETVAR ANGDIR now reports 1 (clockwise).,not_tested
+ATTMODE,Settings,turn off attribute display,"ATTMODE
+0
+",SETVAR ATTMODE now reports 0; block attributes no longer display.,not_tested
+ATTREQ,Settings,disable attribute value prompts on block insert,"ATTREQ
+0
+",SETVAR ATTREQ now reports 0; new block inserts use default attribute values without prompting.,not_tested
+AUTOSNAP,Settings,turn on autosnap marker and magnet,"AUTOSNAP
+63
+","SETVAR AUTOSNAP now reports 63 (marker, magnet, tooltip, and aperture all on).",not_tested
+APERTURE,Settings,set the object snap aperture size to 15,"APERTURE
+15
+",SETVAR APERTURE now reports 15.,not_tested
+CMDECHO,Settings,turn off command echoing to the command line,"CMDECHO
+0
+",SETVAR CMDECHO now reports 0; script/LISP commands no longer echo.,not_tested
+CMDDIA,Settings,turn off dialog boxes for plotting commands,"CMDDIA
+0
+",SETVAR CMDDIA now reports 0; plot-related commands use command-line prompts instead of dialogs.,not_tested
+COORDS,Settings,set coordinate display to update continuously,"COORDS
+2
+",SETVAR COORDS now reports 2; the status bar coordinate display updates as the cursor moves.,not_tested
+DRAGMODE,Settings,turn on dragging preview for all commands,"DRAGMODE
+2
+",SETVAR DRAGMODE now reports 2 (auto); object previews drag with the cursor.,not_tested
+ELEVATION,Settings,set the current elevation to 5,"ELEVATION
+5
+",SETVAR ELEVATION now reports 5; new 2D objects are drawn at that Z height.,not_tested
+THICKNESS,Settings,set the default extrusion thickness to 3,"THICKNESS
+3
+",SETVAR THICKNESS now reports 3; new 2D objects extrude to that height.,not_tested
+FILLMODE,Settings,turn off solid fill display for hatches and wide polylines,"FILLMODE
+0
+",SETVAR FILLMODE now reports 0; solid fills display as outlines only.,not_tested
+FRAME,Settings,hide image and underlay frames,"FRAME
+0
+",SETVAR FRAME now reports 0; raster image/underlay frame borders no longer display.,not_tested
+HPNAME,Settings,set the default hatch pattern to ANSI31,"HPNAME
+ANSI31
+",SETVAR HPNAME now reports 'ANSI31' as the default hatch pattern.,not_tested
+HPSCALE,Settings,set the default hatch scale to 2,"HPSCALE
+2
+",SETVAR HPSCALE now reports 2.,not_tested
+HPANG,Settings,set the default hatch angle to 45 degrees,"HPANG
+45
+",SETVAR HPANG now reports 45.,not_tested
+LWDISPLAY,Settings,turn on lineweight display in the drawing area,"LWDISPLAY
+1
+",SETVAR LWDISPLAY now reports 1; lineweights show visually in the viewport.,not_tested
+LWDEFAULT,Settings,set the default lineweight to 0.25mm,"LWDEFAULT
+25
+",SETVAR LWDEFAULT now reports 25 (0.25mm).,not_tested
+LWUNITS,Settings,switch lineweight units to inches,"LWUNITS
+0
+",SETVAR LWUNITS now reports 0 (inches).,not_tested
+MTEXTED,Settings,set the in-place multiline text editor as default,"MTEXTED
+Internal
+",SETVAR MTEXTED now reports 'Internal'.,not_tested
+MTJIGSTRING,Settings,change the placeholder text shown while placing mtext,"MTJIGSTRING
+Type text
+",SETVAR MTJIGSTRING now reports 'Type text'.,not_tested
+OFFSETGAPTYPE,Settings,set offset corners to fillet when gaps occur,"OFFSETGAPTYPE
+1
+",SETVAR OFFSETGAPTYPE now reports 1; offset polyline corners fillet instead of extending.,not_tested
+OFFSETDIST,Settings,set the default offset distance to 2,"OFFSETDIST
+2
+",SETVAR OFFSETDIST now reports 2.,not_tested
+PDMODE,Settings,set point display style to a circle with a cross,"PDMODE
+33
+",SETVAR PDMODE now reports 33; point objects render as a circled cross.,not_tested
+PDSIZE,Settings,set the displayed point size to 5,"PDSIZE
+5
+",SETVAR PDSIZE now reports 5.,not_tested
+PLINEGEN,Settings,turn on linetype generation around polyline vertices,"PLINEGEN
+1
+",SETVAR PLINEGEN now reports 1; non-continuous linetypes generate continuously through vertices.,not_tested
+PLINEWID,Settings,set the default polyline width to 0.1,"PLINEWID
+0.1
+",SETVAR PLINEWID now reports 0.1.,not_tested
+PLINETYPE,Settings,make rectangles and polygons draw as lightweight polylines,"PLINETYPE
+2
+",SETVAR PLINETYPE now reports 2; new rectangles/polygons are LWPolylines.,not_tested
+PROXYGRAPHICS,Settings,save proxy images for custom objects,"PROXYGRAPHICS
+1
+",SETVAR PROXYGRAPHICS now reports 1; custom/third-party objects save a proxy image for display.,not_tested
+PROXYSHOW,Settings,show proxy objects with a bounding box,"PROXYSHOW
+1
+",SETVAR PROXYSHOW now reports 1; proxy objects display as bounding boxes.,not_tested
+REGENMODE,Settings,turn on automatic regeneration,"REGENMODE
+1
+",SETVAR REGENMODE now reports 1; the drawing regenerates automatically as needed.,not_tested
+SHADEDGE,Settings,set shading mode to faces shaded with edges highlighted,"SHADEDGE
+2
+",SETVAR SHADEDGE now reports 2.,not_tested
+SHADEDIF,Settings,set the diffuse-to-ambient light ratio to 80,"SHADEDIF
+80
+",SETVAR SHADEDIF now reports 80.,not_tested
+SKPOLY,Settings,make the sketch command generate polylines instead of lines,"SKPOLY
+1
+",SETVAR SKPOLY now reports 1; SKETCH output is a single polyline.,not_tested
+SPLFRAME,Settings,show the control frame of splines and fit polylines,"SPLFRAME
+1
+",SETVAR SPLFRAME now reports 1; spline/mesh control frames become visible.,not_tested
+SPLINETYPE,Settings,set the default spline curve fit type to cubic B-spline,"SPLINETYPE
+6
+",SETVAR SPLINETYPE now reports 6.,not_tested
+SURFTAB1,Settings,set the mesh density in the M direction to 12,"SURFTAB1
+12
+",SETVAR SURFTAB1 now reports 12.,not_tested
+SURFTAB2,Settings,set the mesh density in the N direction to 12,"SURFTAB2
+12
+",SETVAR SURFTAB2 now reports 12.,not_tested
+TEXTSTYLE,Settings,set the current text style to Titles,"TEXTSTYLE
+Titles
+",SETVAR TEXTSTYLE now reports 'Titles' as the current text style.,not_tested
+TEXTSIZE,Settings,set the default text height to 0.5,"TEXTSIZE
+0.5
+",SETVAR TEXTSIZE now reports 0.5.,not_tested
+TOOLTIPS,Settings,turn off tooltips display,"TOOLTIPS
+0
+",SETVAR TOOLTIPS now reports 0; hover tooltips no longer appear.,not_tested
+TRIMMODE,Settings,turn off automatic trimming for fillet and chamfer,"TRIMMODE
+0
+",SETVAR TRIMMODE now reports 0; FILLET/CHAMFER no longer auto-trim the selected edges.,not_tested
+UCSICON,Settings,turn off display of the UCS icon,"UCSICON
+OFF
+",The UCS icon no longer displays in the viewport.,not_tested
+VISRETAIN,Settings,make locally changed xref layer settings persist after reopening,"VISRETAIN
+1
+",SETVAR VISRETAIN now reports 1; local xref-layer overrides survive a drawing reopen.,not_tested
+WORLDUCS,Settings,align grid and snap to the World coordinate system,"WORLDUCS
+1
+",SETVAR WORLDUCS now reports 1.,not_tested
+WHIPARC,Settings,smooth circles and arcs during display,"WHIPARC
+1
+",SETVAR WHIPARC now reports 1; circles/arcs render smoothly rather than as polyline approximations.,not_tested
+ZOOMFACTOR,Settings,set the mouse-wheel zoom sensitivity to 80,"ZOOMFACTOR
+80
+",SETVAR ZOOMFACTOR now reports 80.,not_tested
+GFXDX12,Settings,turn off DirectX 12 graphics acceleration,"GFXDX12
+0
+",SETVAR GFXDX12 now reports 0; the display falls back to the previous graphics pipeline (relevant to the documented 2026 crash workaround).,not_tested
+HWACCELERATION,Settings,turn off hardware graphics acceleration,"HWACCELERATION
+0
+",SETVAR HWACCELERATION now reports 0; rendering falls back to software.,not_tested
+INSNAME,Settings,set the default block name for the next insert,"INSNAME
+Fixture
+",SETVAR INSNAME now reports 'Fixture' as the default block for INSERT.,not_tested
+LAYLOCKFADECTL,Settings,fade locked layers to 50 percent,"LAYLOCKFADECTL
+50
+",SETVAR LAYLOCKFADECTL now reports 50; locked-layer objects display faded.,not_tested
+XREFCTL,Settings,enable xref log file generation,"XREFCTL
+1
+",SETVAR XREFCTL now reports 1; a .xlg log file is written when xrefs are loaded/unloaded.,not_tested
+XLOADCTL,Settings,enable demand loading for xrefs,"XLOADCTL
+2
+",SETVAR XLOADCTL now reports 2; xrefs demand-load from a local copy.,not_tested
+INDEXCTL,Settings,enable layer and spatial indexes for the drawing,"INDEXCTL
+3
+",SETVAR INDEXCTL now reports 3; both layer and spatial indexes are saved with the drawing.,not_tested
+DEMANDLOAD,Settings,enable demand-loading of third-party applications,"DEMANDLOAD
+3
+",SETVAR DEMANDLOAD now reports 3.,not_tested
