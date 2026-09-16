@@ -1,0 +1,153 @@
+# Command & System-Variable Parity Checklist
+
+Source: AutoCAD's published keyboard-shortcut guide (core aliased commands) + ~40 consequential system variables, as compiled in the source audit. This is the working core a daily user touches — the starting tranche of the full 1500+-item command/variable surface required by `PAIN_POINTS_AND_REQUIREMENTS.md` #31. As R&D proceeds into the specialized toolsets (Architecture/Mechanical/Electrical/MEP/Plant 3D/Map 3D) and the full dynamically-rendered AutoCAD help system, additional rows get appended here — this file is never considered final until Phase A closes with the full 1500+ count reconciled.
+
+Status for every row below: `[ ]` not started. Mark `must replicate`, `must replicate + fix` (cross-ref the pain point it fixes), or `superseded by [mechanism]` once triaged in Phase F.
+
+## Core commands (alias in parentheses)
+
+- `[ ]` ARC (A) — creates an arc
+- `[ ]` AREA (AA) — area/perimeter of objects or boundary
+- `[ ]` ADCENTER (ADC) — content palette (blocks/xrefs/hatch)
+- `[ ]` ALIGN (AL) — align objects 2D/3D
+- `[ ]` ANALYSISZEBRA (ZEBRA) — surface-continuity stripe check
+- `[ ]` APPLOAD (AP) — load/unload script apps
+- `[ ]` ARRAY (AR) — rectangular/polar/path array
+- `[ ]` ATTDEF (ATT) — define block attribute
+- `[ ]` ATTEDIT (ATE) — edit block attribute values
+- `[ ]` ATTIPEDIT (ATI) — in-place attribute text edit
+- `[ ]` ACTRECORD/ACTSTOP/ACTUSERINPUT/ACTUSERMESSAGE (ARR/ARS/ARU/ARM) — Action Recorder set
+- `[ ]` BLOCK (B) — define reusable block
+- `[ ]` BEDIT/BCLOSE/BSAVE (BE/BC/BS) — Block Editor open/close/save
+- `[ ]` BOUNDARY (BO) — trace enclosed area to polyline/region
+- `[ ]` BPARAMETER/BVSTATE (PARAM/BVS) — dynamic block parameter/visibility state
+- `[ ]` BREAK (BR) — split object at two points
+- `[ ]` CAMERA (CAM) — named 3D camera/target
+- `[ ]` CHAMFER (CHA) — bevel corner
+- `[ ]` CHECKSTANDARDS (CHK) — audit vs. linked standards file
+- `[ ]` CIRCLE (C) — creates a circle
+- `[ ]` CLOSEALL/SAVEALL — close/save all open drawings
+- `[ ]` COLOR/CECOLOR (COL) — set new-object color
+- `[ ]` COMMANDLINE (CLI) — floating/docked command line
+- `[ ]` CONSTRAINTBAR (CBAR) — geometric constraint toolbar
+- `[ ]` COPY (CO) — duplicate at offset
+- `[ ]` CTABLESTYLE (CT) — set table style
+- `[ ]` CYLINDER (CYL) — 3D solid cylinder
+- `[ ]` DATAEXTRACTION (DX) — extract object/attribute data
+- `[ ]` DATALINK/DATALINKUPDATE (DL/DLU) — spreadsheet link create/refresh
+- `[ ]` DBCONNECT (DBC) — external database connection
+- `[ ]` DDEDIT (ED) — edit text/dimension/attribute/tolerance content
+- `[ ]` DDVPOINT (VP) — 3D view direction dialog
+- `[ ]` DIMANGULAR/DIMARC/DIMBASELINE/DIMCENTER/DIMCONTINUE/DIMDIAMETER/DIMJOGGED/DIMJOGLINE/DIMORDINATE/DIMRADIUS — full dimension-creation family
+- `[ ]` DIMCONSTRAINT/DIMDISASSOCIATE/DIMREASSOCIATE (DCON/DDA/DRE) — dimensional constraint/dissociate/reassociate
+- `[ ]` DIMEDIT/DIMOVERRIDE/DIMSTYLE (DED/DOV/D) — dimension edit/override/style management
+- `[ ]` DIST (DI) — distance/angle between two points
+- `[ ]` DIVIDE/MEASURE (DIV/ME) — equal or fixed-length interval placement
+- `[ ]` DONUT (DO) — filled circle/ring
+- `[ ]` DRAWINGRECOVERY (DRM) — list recoverable files post-crash
+- `[ ]` DRAWORDER (DR) — change overlap display order
+- `[ ]` DSETTINGS (DS) — grid/snap/polar/osnap-tracking/dynamic-input dialog
+- `[ ]` DVIEW (DV) — parallel/perspective 3D view setup
+- `[ ]` ELLIPSE (EL) — ellipse/elliptical arc
+- `[ ]` ERASE/OOPS (E) — delete / restore last deleted
+- `[ ]` ETRANSMIT (ZIP) — package drawing + dependents
+- `[ ]` EXPLODE (X) — break compound object into parts
+- `[ ]` EXPORT/EXPORTPDF/IMPORT (EXP/EPDF/IMP) — format export/PDF export/geometry import
+- `[ ]` EXTEND/TRIM (EX/TR) — lengthen to boundary / cut back to boundary
+- `[ ]` EXTERNALREFERENCES/XATTACH/XBIND/XCLIP (ER/XR/XA/XB/XC) — xref management set
+- `[ ]` EXTRUDE/REVOLVE/SLICE/SUBTRACT/UNION/INTERSECT/INTERFERE (EXT/REV/SL/SU/UNI/IN/INF) — solid-modeling operation set
+- `[ ]` FILLET (F) — round corner
+- `[ ]` FILTER (FI) — reusable selection rule set
+- `[ ]` FLATSHOT (FSHOT) — flatten 3D view to 2D lines
+- `[ ]` FSMODE (FS) — select all touching objects
+- `[ ]` GEOCONSTRAINT (GCON) — geometric relationship constraint
+- `[ ]` GEOGRAPHICLOCATION (GEO/NORTH) — real-world lat/long + north
+- `[ ]` GRADIENT/HATCH/HATCHEDIT (GD/H/BH/HE) — gradient/hatch fill + edit
+- `[ ]` GROUP (G) — named selectable object bundle
+- `[ ]` HIDE/VSCURRENT/VISUALSTYLES/SHADEMODE (HI/VS/VSM/SHA) — hidden-line/visual-style management
+- `[ ]` HIDEPALETTES/SHOWPALETTES (POFF/PON) — toggle all open palettes
+- `[ ]` ID — report picked-point coordinates
+- `[ ]` IMAGE/IMAGEATTACH/IMAGEADJUST/IMAGECLIP (IM/IAT/IAD/ICL) — raster image management set
+- `[ ]` INSERT/INSERTOBJ/WBLOCK (I/IO/W) — block insert / OLE insert / write-block-out
+- `[ ]` JOIN (J) — merge compatible objects
+- `[ ]` LAYER/LAYERSTATE/CLAYER (LA/LAS) — layer management, named states, current layer
+- `[ ]` LAYOUT/MSPACE/PSPACE/MVIEW/TILEMODE (LO/MS/PS/MV/TI) — paper-space/layout management set
+- `[ ]` LENGTHEN (LEN) — change object length/arc angle
+- `[ ]` LINE/XLINE/MLINE/PLINE/RECTANG/POLYGON (L/XL/ML/PL/REC/POL) — core line-family primitives
+- `[ ]` LINETYPE/LTSCALE/CELTYPE/CELTSCALE/PSLTSCALE (LT/LTS) — linetype management + scaling
+- `[ ]` LIST (LI) — print full object property data
+- `[ ]` LWEIGHT/CELWEIGHT (LW) — lineweight display/assignment
+- `[ ]` MARKUP (MSM) — Markup Set Manager
+- `[ ]` MATCHPROP (MA) — copy properties between objects
+- `[ ]` MATERIALS/RENDER/RENDERCROP/RENDERPRESETS/RENDERWIN/RPREF (MAT/RR/RC/RP/RW/RPR) — rendering pipeline set
+- `[ ]` MEASUREGEOM (MEA) — distance/radius/angle/area/volume measurement
+- `[ ]` MESHSMOOTHLESS/MESHSMOOTHMORE/MESHSPLIT — mesh smoothness/split
+- `[ ]` MIRROR (MI) — mirrored copy
+- `[ ]` MLEADER/MLEADERALIGN/MLEADERCOLLECT/MLEADEREDIT/MLEADERSTYLE (MLD/MLA/MLC/MLE/MLS) — multileader family
+- `[ ]` MOVE/ROTATE/SCALE/STRETCH (M/RO/SC/S) — core transform commands
+- `[ ]` MTEXT/TEXT/TEXTEDIT/STYLE/TEXTSIZE/TEXTSTYLE (MT/T/DT/TEDIT/ST) — text creation/edit/style set
+- `[ ]` NAVSWHEEL/NAVVCUBE/3DORBIT (WHEEL/CUBE/ORBIT) — 3D navigation aids
+- `[ ]` NEWSHOT/NEWVIEW/VIEW/VIEWGO/VIEWPLAY/SEQUENCEPLAY (NSHOT/NVIEW/V/VGO/VPLAY/SPLAY) — named/animated view set
+- `[ ]` OFFSET (O) — parallel copy at set distance
+- `[ ]` OPTIONS (OP) — program-wide preferences dialog
+- `[ ]` OSNAP/OSMODE (OS) — running object-snap settings
+- `[ ]` PAN (P) — slide view
+- `[ ]` PARAMETERS (PAR) — associative parameter management
+- `[ ]` PASTESPEC (PA) — formatted clipboard paste
+- `[ ]` PEDIT (PE) — polyline/3D mesh edit
+- `[ ]` PLOT/PREVIEW/PUBLISHTOWEB (PRINT/PRE/PTW) — plot/preview/web-publish set
+- `[ ]` POINT (PO) — point object
+- `[ ]` POINTCLOUD/POINTCLOUDATTACH/POINTCLOUDINDEX (PC/PCATTACH/PCINDEX) — point-cloud management set
+- `[ ]` POLYSOLID/PYRAMID/TORUS/WEDGE (PSOLID/PYR/TOR/WE) — primitive 3D solids
+- `[ ]` PROPERTIES/QUICKPROPERTIES (MO/PR/CH/QP) — properties palette, full and quick
+- `[ ]` PURGE (PU) — remove unused named objects
+- `[ ]` QLEADER (LE) — legacy leader command
+- `[ ]` QSAVE/QUIT (EXIT) — quick save / exit
+- `[ ]` QUICKCALC (QC) — in-program calculator
+- `[ ]` QUICKCUI (QCUI) — collapsed CUI editor
+- `[ ]` QVDRAWING/QVLAYOUT (QVD/QVL) — live thumbnail preview switching
+- `[ ]` REDRAW/REDRAWALL/REGEN/REGENALL (R/RA/RE/REA) — screen refresh / full regen, per-viewport or all
+- `[ ]` REGION (REG) — closed shape → region object
+- `[ ]` RENAME (REN) — rename named objects
+- `[ ]` SCRIPT (SCR) — run stored command script
+- `[ ]` SECTION/SECTIONPLANE (SEC/SPLANE) — 2D section region / live cutting plane
+- `[ ]` SETVAR (SET) — list/change system variable
+- `[ ]` SHEETSET (SSM) — Sheet Set Manager
+- `[ ]` SNAP/SNAPMODE/GRIDMODE/GRIDUNIT/ORTHOMODE (SN) — cursor-grid restriction set
+- `[ ]` SOLID (SO) — legacy filled 2D shape
+- `[ ]` SPELL (SP) — spell-check pass
+- `[ ]` SPLINE/SPLINEDIT (SPL/SPE) — smooth curve create/edit
+- `[ ]` STANDARDS/CHECKSTANDARDS (STA/CHK) — standards file link + audit
+- `[ ]` SURFPATCH (PATCH) — cap closed surface-edge loop
+- `[ ]` TABLE/TABLESTYLE (TB/TS) — data table insert + style management
+- `[ ]` TABLET (TA) — digitizing tablet calibration
+- `[ ]` THICKNESS (TH) — default extrusion thickness
+- `[ ]` TOLERANCE (TOL) — geometric-tolerance frame
+- `[ ]` TOOLBAR/TOOLPALETTES/CUI (TO/TP) — toolbar/palette/ribbon customization
+- `[ ]` UCSMAN/UCSICON (UC) — named UCS management + icon toggle
+- `[ ]` UNITS/LUNITS/LUPREC/AUNITS/AUPREC/INSUNITS/MEASUREMENT (UN) — unit display/precision set
+- `[ ]` UNISOLATEOBJECTS (UNHIDE/UNISOLATE) — restore hidden/isolated objects
+- `[ ]` ZOOM (Z) — change view magnification
+
+## Frequently used system variables
+
+- `[ ]` PICKBOX / PICKFIRST / PICKADD — pick-box size, pre-selection, add-vs-replace selection
+- `[ ]` FILLETRAD / CHAMFERA / CHAMFERB — default fillet/chamfer values
+- `[ ]` DIMSCALE — overall dimension scale factor
+- `[ ]` VISRETAIN — xref-layer-override persistence
+- `[ ]` SAVETIME — autosave interval
+- `[ ]` FILEDIA — file-dialog vs. command-line prompt toggle
+- `[ ]` EXPERT — warning/confirmation suppression level
+- `[ ]` HIGHLIGHT — selection highlight toggle
+- `[ ]` BLIPMODE — pick-point marker toggle
+- `[ ]` MIRRTEXT — text-mirroring behavior
+- `[ ]` QTEXTMODE — bounding-box text display for fast regen
+- `[ ]` FACETRES — curved-solid shading smoothness
+- `[ ]` ISOLINES — wireframe contour-curve density
+- `[ ]` DISPSILH — silhouette-curve display toggle
+- `[ ]` GFXDX12 / HWACCELERATION — graphics API / hardware acceleration toggle (Curiosity: architected to not need a user-facing disable switch — see Pain Points #10)
+- `[ ]` REVCLOUDLAYER / REVCLOUDSCALEMODE — revision-cloud layer/scale control
+- `[ ]` TABLELAYER / VIEWPORTLAYER / MLEADERLAYER / DIMLAYER / TEXTLAYER / CENTERLAYER / HPLAYER — full "force onto layer" override set
+
+---
+**Reconciliation note:** the source audit explicitly scoped this list to ~150 aliased core commands + ~40 variables as "the working core," while flagging AutoCAD's true surface at ~1,000 commands / ~900 variables once every specialized toolset is included. Per requirement #31, Curiosity's real target is the full surface. Phase A is not closed until this file has been expanded, toolset by toolset (Architecture, Mechanical, Electrical, MEP, Plant 3D, Map 3D, Raster Design), to reconcile against that full count — tracked as a Phase A sub-task in `STATUS.md`.
