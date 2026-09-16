@@ -1,10 +1,15 @@
 using System;
 using System.Windows.Forms;
-using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Windows;
 using Curiosity.Plugin.Execution;
 using Curiosity.Plugin.NlParser;
+// Both Autodesk.AutoCAD.ApplicationServices and System.Windows.Forms define an "Application" type;
+// a real build caught the ambiguity (CS0104). Alias the AutoCAD one explicitly rather than "using"
+// the whole ApplicationServices namespace, since Document (used elsewhere in this file) doesn't
+// collide and can stay a plain using.
+using AcApplication = Autodesk.AutoCAD.ApplicationServices.Application;
+using Autodesk.AutoCAD.ApplicationServices;
 
 namespace Curiosity.Plugin.Ui
 {
@@ -61,7 +66,7 @@ namespace Curiosity.Plugin.Ui
 
         private async System.Threading.Tasks.Task HandleInstructionAsync(string instruction)
         {
-            var doc = Application.DocumentManager.MdiActiveDocument;
+            var doc = AcApplication.DocumentManager.MdiActiveDocument;
             Log($"> {instruction}");
 
             var intent = LocalPatternMatcher.TryResolve(instruction);

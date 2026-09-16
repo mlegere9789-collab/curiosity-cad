@@ -107,8 +107,11 @@ namespace Curiosity.Plugin.NlParser
 
     public sealed class EntityContext
     {
-        public string EntityType { get; init; } = "";
+        // set, not init: SelectionContext.CaptureCurrent builds this incrementally after
+        // construction (init-only properties can't be reassigned outside an object initializer,
+        // caught by a real build - CS8852).
+        public string EntityType { get; set; } = "";
         public Dictionary<string, object> Properties { get; init; } = new();
-        public List<string> NearbyReferenceNames { get; init; } = new();
+        public List<string> NearbyReferenceNames { get; set; } = new();
     }
 }
