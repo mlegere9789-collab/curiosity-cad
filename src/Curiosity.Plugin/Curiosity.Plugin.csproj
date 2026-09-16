@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- AutoCAD .NET plugins currently require .NET Framework (AutoCAD 2025/2026 still ship on .NET Framework 4.8
+         for the managed API, not .NET 6+/Core), so this targets net48, not net8.0. Revisit if/when Autodesk
+         ships a .NET-Core-hosted managed API for the targeted AutoCAD version. -->
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!--
+    AutoCAD's managed API assemblies (AcMgd.dll, AcDbMgd.dll, AcCoreMgd.dll) are NOT published on NuGet.
+    They ship inside the AutoCAD install itself. Point AUTOCAD_INSTALL_DIR at the real install
+    (see docs/PLUGIN_SETUP.md) via an environment variable or a local, untracked
+    Curiosity.Plugin.csproj.user file — do not hardcode a path here, since every dev's AutoCAD
+    install directory differs. This project has never been compiled: it was authored outside
+    Windows/AutoCAD. Building it for the first time is the explicit next step in STATUS.md.
+  -->
+  <ItemGroup>
+    <Reference Include="AcMgd">
+      <HintPath>$(AUTOCAD_INSTALL_DIR)\AcMgd.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="AcDbMgd">
+      <HintPath>$(AUTOCAD_INSTALL_DIR)\AcDbMgd.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="AcCoreMgd">
+      <HintPath>$(AUTOCAD_INSTALL_DIR)\AcCoreMgd.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>

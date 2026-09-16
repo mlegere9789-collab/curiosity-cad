@@ -1,30 +1,35 @@
 # Status
 
-**Current phase:** A — Lock the spec
-**Overall completion: 0%** (Phase A scaffolding in progress; no application code yet)
-**Last updated:** 2026-09-16
+**Current focus:** Windows AutoCAD .NET plugin — natural-language chat-edit layer.
+**Scope pivot on 2026-09-16:** abandoned the from-scratch full-CAD-program concept (archived in `docs/archive-fullbuild-cad-concept/`) in favor of a plugin for real AutoCAD, since the actual audience already has genuine AutoCAD licenses through school. Windows-only, decided explicitly — AutoCAD's plugin API doesn't exist on Mac (.NET/ObjectARX unsupported there) and AutoCAD doesn't exist on Linux at all.
 
 ## What's done
-- Repo created and structured.
-- `README.md` — 100% completion bar quoted verbatim, locked.
-- `docs/BUILD_PLAN.md` — Phases A–P fully specified, including the NL chat-edit layer and free/no-subscription licensing folded in.
-- `docs/PAIN_POINTS_AND_REQUIREMENTS.md` — 37 numbered acceptance criteria (17 pain points + 13 cross-checked tally items + 7 owner-added requirements incl. NL layer, in-house AI, cross-platform, free-forever).
-- `docs/FEATURE_CATALOG.md` — first-tranche feature checklist (AI/automation, collaboration, 2D, 3D, file compat, customization, all 7 specialized toolsets).
-- `docs/COMMAND_PARITY_CHECKLIST.md` — ~150 core commands + ~40 system variables, first tranche of the full 1500+ item target.
-- `docs/CURIOSITY_ANSWERS.md` — pain-point → architecture mapping, the 5 groundbreaking features, and the NL layer's acceptance tests.
+- Repo restructured for the new scope; old full-build docs preserved under `docs/archive-fullbuild-cad-concept/` for reference (their pain-point research is still useful).
+- `docs/ARCHITECTURE.md`, `docs/INTENT_SCHEMA.md`, `docs/PLUGIN_SETUP.md` written.
+- First real code, in `src/Curiosity.Plugin/`:
+  - `NlParser/IntentSchema.cs` — the structured command contract between NL parsing and execution.
+  - `NlParser/LocalPatternMatcher.cs` — tier-1 offline regex matcher. **Actually tested** (via an equivalent standalone check, since no .NET SDK was reachable in this environment — see below) against both of the spec's exact acceptance-test phrases and a negative case. Caught and fixed a real bug: the first version required "line weight" to appear before the weight word, which broke on the spec's own example ("change to **medium** line weight"). Now order-independent.
+  - `NlParser/LlmFallbackClient.cs` — tier-2 Claude API fallback, same output schema as tier 1. Written against the documented API shape; **not yet tested end to end** (needs a real API key + real response to confirm the parsing of Claude's JSON reply is correct).
+  - `NlParser/SelectionContext.cs` — builds LLM context from the live AutoCAD selection.
+  - `Execution/CommandExecutor.cs` — applies an `EditIntent` via the AutoCAD .NET API in a `Transaction`. Implements `SetProperty` (lineweight/color/layer) and `ConstrainAngle`. **Not yet compiled or run** — no AutoCAD/Windows environment was available to this session.
+  - `Execution/GeometrySolver.cs` — angle-constraint math (rotate target line to intersect a reference line at a given angle). Logic written and reasoned through; not yet unit-tested against real `Line` geometry (needs the AutoCAD `Geometry` assembly, which needs a real build).
+  - `Execution/Macros/MacroRegistry.cs` — macro registry with one real (rough, flagged) macro (`purge-unused`); others intentionally not stubbed in so unimplemented macros fail loudly.
+  - `Ui/ChatPalette.cs`, `Commands.cs` — the AutoCAD-side panel and NETLOAD entry point.
+- `src/Curiosity.Tests/` — xunit tests for the local matcher (the one part with zero AutoCAD/Windows dependency). **Not run via `dotnet test`** — no .NET SDK was installable in this sandboxed Linux environment (both the official installer and apt were blocked). The same assertions were verified with an equivalent Python regex check instead; real `dotnet test` execution is the first thing to run on a real dev machine.
 
-## Exact next action (always keep this section accurate — this is what "resume" means)
-1. Finish Phase A: expand `COMMAND_PARITY_CHECKLIST.md` toolset-by-toolset (Architecture → Mechanical → Electrical → MEP → Plant 3D → Map 3D → Raster Design) to reconcile against the full ~1500-item AutoCAD command/variable surface, not just the ~150-command aliased core.
-2. Triage every row in `COMMAND_PARITY_CHECKLIST.md` as `must replicate` / `must replicate + fix` / `superseded by [mechanism]`.
-3. Run the 3 required QC passes over the full Phase A checklist set (per project-owner instruction: dogmatic, repeated QC).
-4. Close Phase A; open Phase B (`docs/architecture/STACK_DECISION.md` — Rust/wgpu/egui-or-Slint/PyO3 decision, justified against the parity + performance + web-parity requirements).
-5. Phase C: scaffold the Cargo workspace (`/core /render /ui /io /script /ai /web /installers`) and cross-platform CI.
+## Honest gaps — what's designed but not implemented or not verified
+- **Nothing in this repo has been compiled.** This is the single biggest fact to know before trusting any of it. `docs/PLUGIN_SETUP.md` explains exactly what to do and in what order on a real Windows + AutoCAD + Visual Studio machine.
+- `CommandExecutor.FindNamedReferenceLine` — throws `NotImplementedException` on purpose. How a classmate's drawing actually identifies "the ground line" (a layer name? an xdata tag? text label proximity?) needs a real drawing to decide against, not a guess from outside AutoCAD.
+- `ChatPalette` doesn't yet read an API key or construct `LlmFallbackClient` — it's referenced but never instantiated. Needs to be wired to read `ANTHROPIC_API_KEY` (or a settings UI) once basic local-matcher flow is confirmed working.
+- `MacroRegistry.PurgeUnused` is a rough placeholder (the ObjectIdCollection-building loop is a no-op stub) — needs real logic once compiling against the real `Database.Purge` API is possible.
+- `LlmFallbackClient.ParseModelResponse` assumes a specific Claude response shape; unverified against a real API call.
 
-## Flagged dependency (not a blocker yet, will matter at Phase I and part of Phase E)
-- **DWG fidelity (Phase E):** needs a licensed SDK or a long-horizon from-scratch reader/writer; decision recorded in `docs/architecture/DWG_STRATEGY.md` when Phase E opens.
-- **CAD-specific model training (Phase I):** needs project-owner-provisioned cloud GPU compute + billing account. The NL command layer itself does not wait on this — only the trained-model sub-track (Smart-Blocks-equivalent detection, geometry suggestion) does.
+## Exact next action
+1. On a real Windows machine with AutoCAD + Visual Studio: follow `docs/PLUGIN_SETUP.md`, attempt the first build, and report back every compile error. That's the highest-value single next step — it's the one thing this session cannot do from outside Windows.
+2. Once it compiles: `NETLOAD` it, run `CURIOSITY`, confirm the panel opens.
+3. Test the spec's own acceptance phrase "change to medium line weight" end to end on a real selected line.
+4. Only after 1–3 succeed: tackle the `FindNamedReferenceLine` design decision (needs a real drawing to test naming conventions against) and wire up the LLM fallback with a real API key.
 
-## Ground rules for whoever/whatever resumes this project
-- Never mark a row in any checklist `[x]` without a passing automated test (or documented human review where automation can't cover it).
-- Never reduce scope on any of the 37 requirements without the project owner explicitly reopening that specific requirement.
-- Always update this file's "exact next action" before ending a session/phase, so the next session needs zero re-explanation.
+## Ground rules
+- Don't mark anything "done" here without it actually having run against real AutoCAD (or, for the pure-logic NlParser pieces, a real `dotnet test` run once an SDK is reachable).
+- No autonomous scheduled sessions are running against this repo right now — paused per the project owner's "full pause" instruction. Resume manually when ready.

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Only references the NL parser types, which have no AutoCAD assembly dependency and so are
+         the one part of the plugin actually testable outside a real AutoCAD session. Execution/
+         and Ui/ need AcMgd/AcDbMgd and can only be verified by loading into real AutoCAD. -->
+    <Compile Include="..\Curiosity.Plugin\NlParser\IntentSchema.cs" />
+    <Compile Include="..\Curiosity.Plugin\NlParser\LocalPatternMatcher.cs" />
+  </ItemGroup>
+
+</Project>

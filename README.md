@@ -1,33 +1,40 @@
-# Curiosity
+# Curiosity — a natural-language plugin for AutoCAD
 
-A free, forever-free, cross-platform (Windows/macOS/Linux) CAD/3D design application built to reach full functional parity with AutoCAD 2026 — every command, every toolset, every documented feature — while resolving 100% of AutoCAD's documented user-pain-points at the architecture level, adding a natural-language chat-based editing layer, and shipping five features nothing in the AutoCAD/Autodesk line has.
+Not a replacement for AutoCAD. A plugin that runs **inside** real AutoCAD (Windows) and removes the tedium: type a plain-English instruction, have it executed on your selected geometry immediately, and get one-click fixes for the multi-step annoyances (layout/paper-space setup, purging, standardizing layers) instead of doing them by hand every time.
 
-This repository is the single source of truth for that build. It is designed to be resumable across sessions with zero re-explanation: `STATUS.md` always states the current phase and the exact next action.
+**Audience:** the project owner and classmates, who already have genuine AutoCAD licenses through school. That fact is load-bearing for the whole design — see "Why this scope" below.
 
-## The 100% completion bar (non-negotiable, set by project owner)
+## What it does
 
-A build is not "100% done" until **every** item below is true. This is quoted verbatim from the requirements-setting conversation and must not be edited, softened, or reinterpreted:
+- Select an entity, type an instruction into a docked chat panel inside AutoCAD, and watch it execute immediately. Examples from spec:
+  - "change to medium line weight" → sets the selected object's lineweight property.
+  - "make sure this line intersects with the ground line at a 45 degree angle" → recomputes/constrains the selected line's geometry against a referenced entity to satisfy the stated angle.
+- One-click macros for known multi-step chores (paper-space/layout setup, purge, layer/linetype standardization) instead of memorizing the manual sequence.
+- Full manual AutoCAD editing stays exactly as-is, untouched — this is an additive layer, never a replacement UI.
 
-> Every documented AutoCAD 2026 feature capability must be present in Curiosity (not copied — independently built, researched from how AutoCAD's features actually work, including all AI integration). 1500+ AutoCAD commands/variables/capabilities researched and matched. Every AutoCAD UI/UX/layout/organization/tool complaint and every commonly-mentioned user-unfriendliness must be fully fixed/resolved/addressed — 100% of AutoCAD pain points resolved, not 10%. All 5 groundbreaking features (Living Constraint Graph, Time-Travel Drawing Diff, Real-Time Code & Standards Compliance Layer, One-Click Fabrication Reality Check, Session Replay) implemented and functional. A natural-language chat-based editing system: select an element, type a plain-English instruction ("change to medium line weight," "make this line intersect the ground line at a 45 degree angle"), and have it executed immediately and automatically — alongside full manual editing parity with AutoCAD. Any AI models the product needs are built/trained by this project, not merely wrapped. Installable on Windows, macOS, and Linux. Totally free — no subscriptions, no paid tiers, ever.
+## Why this scope (read before changing it)
 
-Accepted explicitly: this will take years (7+ is fine). No scope reduction on any of the above is authorized without the project owner reopening the requirement themselves.
+An earlier version of this project aimed to rebuild an entire free, cross-platform, AutoCAD-parity CAD application from scratch. That is real engineering fiction at any timeline under many years and doesn't serve the actual goal, which is: **make AutoCAD itself less miserable for people who already have it.** That reframe made three things true, on purpose:
 
-## Source specification
+1. **We ride on real AutoCAD**, not reimplement it — so we inherit its DWG fidelity, its full toolset, and its licensing (each user needs their own AutoCAD, which this audience already has).
+2. **Windows only.** AutoCAD's plugin API (.NET/ObjectARX) is Windows-only. AutoCAD for Mac does not support .NET/ObjectARX plugins (AutoLISP only, a much thinner surface). There is no AutoCAD for Linux at all — a "plugin" cannot exist for software that isn't there. This was decided explicitly, not defaulted into: see `STATUS.md` decision log.
+3. **Small, shippable, testable** — weeks/months, not years.
 
-The full requirements are derived from `docs/source-audit/` (the original AutoCAD 2026 feature-and-pain-point audit) plus the requirements conversation. See:
+## Architecture
 
-- [`docs/BUILD_PLAN.md`](docs/BUILD_PLAN.md) — Phases A–P, the sequenced execution plan
-- [`docs/FEATURE_CATALOG.md`](docs/FEATURE_CATALOG.md) — every AutoCAD 2026 feature Curiosity must independently reach parity on
-- [`docs/COMMAND_PARITY_CHECKLIST.md`](docs/COMMAND_PARITY_CHECKLIST.md) — every core command/alias/system variable, tracked row by row
-- [`docs/PAIN_POINTS_AND_REQUIREMENTS.md`](docs/PAIN_POINTS_AND_REQUIREMENTS.md) — every pain point as a numbered, testable acceptance criterion, plus the additional requirements (NL chat layer, licensing, platform)
-- [`docs/CURIOSITY_ANSWERS.md`](docs/CURIOSITY_ANSWERS.md) — the architectural answer to each pain point, and the five groundbreaking features
-- [`STATUS.md`](STATUS.md) — current phase, percent complete, exact next action
+- **Host:** AutoCAD (Windows), plugin loaded via `NETLOAD`, built on the AutoCAD .NET API (`AcMgd`/`AcDbMgd`/`AcCoreMgd`).
+- **UI:** a docked `PaletteSet` panel with a chat-style input box, inside the AutoCAD window.
+- **NL layer, two-tier:**
+  1. **Local pattern matcher** — fast, offline, handles well-defined phrasings (lineweight/color/layer changes, common geometric constraints) with no network call.
+  2. **LLM fallback** (Claude API) — for anything the local matcher doesn't confidently recognize. Takes the instruction + selected-entity context (type, properties, nearby geometry) and returns a structured edit command in the same schema the local matcher produces, so there is exactly one execution path regardless of which tier resolved the instruction.
+- **Execution:** structured commands are applied via the AutoCAD .NET API's `Database`/`Transaction`/`Editor` objects directly — not simulated keystrokes.
 
-## Known hard dependencies (flagged early, not blockers to starting)
+See `docs/ARCHITECTURE.md` for the full design and `docs/PLUGIN_SETUP.md` for how to build/load it against a real AutoCAD install (this repo is authored outside Windows/AutoCAD, so it has never been compiled or run against the real product — building and testing it is the necessary next real step, and it must happen on an actual Windows machine with AutoCAD + the ObjectARX SDK installed).
 
-- **DWG read/write at real fidelity** needs either a licensed SDK (e.g. ODA Teigha) or a long-horizon from-scratch reverse-engineered reader/writer validated against a large real-file corpus. Tracked in `docs/BUILD_PLAN.md` Phase E.
-- **Custom-trained CAD-specific models** (intent parsing, Smart-Blocks-equivalent detection) need provisioned cloud GPU compute and billing, which the project owner must set up when Phase I is reached. Flagged in `docs/BUILD_PLAN.md` Phase I.
+## Status
 
-## License
+See `STATUS.md` for exactly where the build is and what's next.
 
-Free and open, forever. See `LICENSE`.
+## Prior concept (archived)
+
+The original from-scratch CAD program concept is preserved for reference in `docs/archive-fullbuild-cad-concept/` — its pain-point research is still used to prioritize what this plugin fixes first.
