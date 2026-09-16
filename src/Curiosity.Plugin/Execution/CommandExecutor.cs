@@ -37,6 +37,17 @@ namespace Curiosity.Plugin.Execution
                 return;
             }
 
+            if (intent.Action == IntentAction.RunNativeCommand)
+            {
+                // Queues text to AutoCAD's own command line (SendStringToExecute) rather than
+                // editing the database directly, so it doesn't participate in a Transaction the
+                // way the structured actions below do — the native command AutoCAD runs manages
+                // its own transaction internally, asynchronously, after this method returns.
+                // Handled as a special case before opening one, not inside the switch below.
+                ExecuteRunNativeCommand(intent, doc);
+                return;
+            }
+
             using var tr = doc.TransactionManager.StartTransaction();
             try
             {
@@ -50,6 +61,9 @@ namespace Curiosity.Plugin.Execution
                         break;
                     case IntentAction.Transform:
                         ExecuteTransform(intent, doc, tr);
+                        break;
+                    case IntentAction.Select:
+                        ExecuteSelect(intent, doc);
                         break;
                     case IntentAction.RunMacro:
                         Macros.MacroRegistry.Run((string)intent.Parameters["name"], doc, tr);
@@ -154,6 +168,74 @@ namespace Curiosity.Plugin.Execution
 
                 entity.TransformBy(matrix);
             }
+        }
+
+        /// <summary>
+        /// Builds a selection from a description ("the wall layer", "all circles", "everything
+        /// red") and makes it AutoCAD's active (implied) selection — so a follow-up instruction
+        /// like "change to medium line weight" acts on it without touching the mouse. Parameters:
+        /// {"layer": string?} — wildcard-matched (substring, case-insensitive) against layer names,
+        ///   not an exact match, since a person's description ("the wall layer") won't exactly equal
+        ///   a real layer name ("A-WALL") most of the time.
+        /// {"entityType": string?} — an AutoCAD entity type name (e.g. "CIRCLE", "LINE", "LWPOLYLINE").
+        /// {"colorIndex": int?} — an AutoCAD color index (1-255); the LLM is responsible for mapping
+        ///   a color word like "red" to its index (1=red, 2=yellow, ... 7=white/black) in its response.
+        /// At least one of these must be present, or nothing is selected.
+        /// </summary>
+        private static void ExecuteSelect(EditIntent intent, Document doc)
+        {
+            var filterValues = new List<TypedValue>();
+
+            if (intent.Parameters.TryGetValue("layer", out var layerObj) && layerObj is string layerName && !string.IsNullOrWhiteSpace(layerName))
+                filterValues.Add(new TypedValue((int)DxfCode.LayerName, $"*{layerName}*"));
+
+            if (intent.Parameters.TryGetValue("entityType", out var typeObj) && typeObj is string entityType && !string.IsNullOrWhiteSpace(entityType))
+                filterValues.Add(new TypedValue((int)DxfCode.Start, entityType.ToUpperInvariant()));
+
+            if (intent.Parameters.TryGetValue("colorIndex", out var colorObj))
+                filterValues.Add(new TypedValue((int)DxfCode.Color, Convert.ToInt16(colorObj)));
+
+            if (filterValues.Count == 0)
+            {
+                doc.Editor.WriteMessage("\nCuriosity: need at least one selection criterion (layer, entity type, or color) to select by description.\n");
+                return;
+            }
+
+            var filter = new SelectionFilter(filterValues.ToArray());
+            var result = doc.Editor.SelectAll(filter);
+
+            if (result.Status != PromptStatus.OK || result.Value.Count == 0)
+            {
+                doc.Editor.WriteMessage("\nCuriosity: nothing in the drawing matched that description.\n");
+                return;
+            }
+
+            doc.Editor.SetImpliedSelection(result.Value.GetObjectIds());
+            doc.Editor.WriteMessage($"\nCuriosity: selected {result.Value.Count} object(s).\n");
+        }
+
+        /// <summary>
+        /// General fallback for the long tail of AutoCAD's ~1500+ command surface that doesn't have
+        /// (and may never get) a dedicated structured action: translate the instruction into
+        /// AutoCAD's own command-line syntax and run it via SendStringToExecute, the same mechanism
+        /// a .scr script file uses. Parameters: {"commandString": string} — the literal command text,
+        /// including any typed parameters/responses, newline-separated, exactly as if a person had
+        /// typed it at the command line (e.g. "FILLET\nR\n0.5\n" to set a 0.5 fillet radius).
+        ///
+        /// Real, load-bearing limitation: this only works for commands that can complete using a
+        /// pre-existing selection (set via ExecuteSelect or the user's own pick) plus typed
+        /// parameters. A command that needs an arbitrary, unspecified point picked on screen (e.g.
+        /// "draw a circle" with no location given) cannot be completed this way — English has to
+        /// supply a coordinate or a relative description, the same way a person would have to choose
+        /// where to click. Not yet tested against a real AutoCAD session; SendStringToExecute queues
+        /// text asynchronously rather than running it synchronously inside this method, which is a
+        /// known source of timing quirks when called from inside an already-running command
+        /// (this method itself runs inside the CURIOSITY command) — needs real verification.
+        /// </summary>
+        private static void ExecuteRunNativeCommand(EditIntent intent, Document doc)
+        {
+            var commandString = (string)intent.Parameters["commandString"];
+            doc.SendStringToExecute(commandString.TrimEnd('\n', ' ') + " \n", true, false, true);
         }
 
         /// <summary>

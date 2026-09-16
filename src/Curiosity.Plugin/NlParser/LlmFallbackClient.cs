@@ -65,7 +65,7 @@ namespace Curiosity.Plugin.NlParser
         private static string BuildSystemPrompt() =>
             "You translate a CAD user's plain-English editing instruction into a single JSON object " +
             "matching this exact schema: " +
-            "{\"action\": \"SetProperty|ConstrainAngle|ConstrainParallel|ConstrainPerpendicular|Transform|RunMacro|Unrecognized\", " +
+            "{\"action\": \"SetProperty|ConstrainAngle|ConstrainParallel|ConstrainPerpendicular|Transform|Select|RunNativeCommand|RunMacro|Unrecognized\", " +
             "\"target\": {\"kind\": \"selection|named|nearest\", \"name\": string|null}, " +
             "\"parameters\": object, \"confidence\": number}. " +
             "Parameters per action - " +
@@ -75,7 +75,21 @@ namespace Curiosity.Plugin.NlParser
             "Transform: {\"operation\": \"Rotate\", \"degrees\": number} or {\"operation\": \"Move\", \"dx\": number, \"dy\": number} " +
             "or {\"operation\": \"Scale\", \"factor\": number} - use Transform for any rotate/move/scale instruction that " +
             "isn't specifically about matching another entity's angle (that's ConstrainAngle instead); " +
+            "Select: {\"layer\": string?, \"entityType\": string?, \"colorIndex\": number?} - use this when the user wants to " +
+            "select/pick something by description instead of naming an edit directly (e.g. \"select the wall layer\", " +
+            "\"select all circles\", \"select everything red\"); entityType must be a real AutoCAD DXF entity name " +
+            "(LINE, CIRCLE, ARC, LWPOLYLINE, TEXT, MTEXT, etc.), colorIndex is AutoCAD's 1-255 ACI index (1=red, 2=yellow, " +
+            "3=green, 4=cyan, 5=blue, 6=magenta, 7=white/black); include only the criteria the instruction actually specifies; " +
+            "RunNativeCommand: {\"commandString\": string} - the general fallback for AutoCAD's full ~1500-command surface " +
+            "when no other action fits: the literal AutoCAD command-line text, newline-separated exactly as a person would " +
+            "type it (e.g. \"FILLET\\nR\\n0.5\\n\" to fillet with a 0.5 radius), assuming it will run against whatever is " +
+            "currently selected. Only use this for commands that can complete from a selection plus typed values - never " +
+            "for a command that needs an arbitrary point picked on screen with no location given in the instruction; if the " +
+            "instruction doesn't supply enough information to write a complete, unambiguous command string, return " +
+            "Unrecognized instead of guessing; " +
             "RunMacro: {\"name\": string} (only if the instruction clearly matches a known macro, otherwise prefer Unrecognized). " +
+            "Prefer the most specific action that fits (SetProperty/ConstrainAngle/Transform/Select) over RunNativeCommand " +
+            "when one applies - RunNativeCommand is the fallback of last resort, not the default. " +
             "Return Unrecognized with confidence 0 if the instruction is ambiguous, unsupported, or you are not confident. " +
             "Respond with ONLY the JSON object, no prose, no markdown fencing.";
 

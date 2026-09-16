@@ -28,19 +28,26 @@ Real usage immediately surfaced the next real requirement: the project owner tri
 - `ChatPalette` now actually constructs `LlmFallbackClient`, reading `ANTHROPIC_API_KEY` from the environment at startup (each user supplies their own key — see `docs/PLUGIN_SETUP.md`).
 - Fixed a latent bug in `LlmFallbackClient.ParseModelResponse`: the `reference` parameter (used by `ConstrainAngle`) was being flattened to a JSON string instead of parsed into the `EntityReference` object `CommandExecutor` actually casts it to — would have thrown `InvalidCastException` the first time anyone tried an angle instruction through the LLM tier. Never hit yet since tier 2 wasn't wired up until now.
 
-None of this round has been compiled or run yet — that's the very next step.
+**Scope expansion, same session, driven by the project owner's explicit ask**: get as close as realistically possible to (a) AutoCAD's full ~1,500-command surface via typed English, and (b) selecting geometry through Curiosity instead of the mouse. Two new actions added:
+- `IntentAction.Select` — builds an AutoCAD selection filter (layer/entity type/color, wildcard-matched on layer name) from a description and sets it as the active selection, so a follow-up instruction can act on it with no mouse click. Implemented in `CommandExecutor.ExecuteSelect`.
+- `IntentAction.RunNativeCommand` — the general fallback for the long tail of AutoCAD's command surface: the LLM translates an instruction into literal AutoCAD command-line text and `CommandExecutor.ExecuteRunNativeCommand` runs it via `SendStringToExecute`, inheriting AutoCAD's own command processor instead of Curiosity reimplementing ~1,500 commands one at a time.
+
+**The honest, permanent ceiling on both** (documented in `docs/ARCHITECTURE.md` and in the LLM's own system prompt, not just here): a command needing an arbitrary point picked on empty canvas has no location to act on unless the instruction supplies one; `Select` can only match a describable, filterable property, not a vague visual description. Within those real limits this is the actual path to "as close to 100% as possible," not a compromise dressed up as one.
+
+None of this round (Transform, FindNamedReferenceLine, LLM wiring, Select, RunNativeCommand) has been compiled or run yet — that's the very next step.
 
 ## Honest gaps — what's designed but not implemented or not verified
-- This entire round (Transform action, FindNamedReferenceLine, LLM wiring, the reference-parsing fix) has not been compiled or run yet.
-- `FindNamedReferenceLine`'s layer-name-matching convention is a first guess, not validated against a real drawing — a classmate's actual layer naming habits may need a different strategy.
+- This entire round has not been compiled or run yet.
+- `FindNamedReferenceLine`'s and `Select`'s layer-name-matching conventions are first guesses, not validated against a real drawing — a classmate's actual layer naming habits may need a different strategy.
+- `RunNativeCommand`'s `SendStringToExecute` call has a documented, real risk of timing quirks when invoked from inside an already-running command (this method runs inside `CURIOSITY` itself) — needs real verification, may need a queued/deferred execution approach if it misbehaves.
 - `MacroRegistry.PurgeUnused` is still a rough placeholder (the ObjectIdCollection-building loop is a no-op stub).
-- The LLM tier (API key wiring, response parsing, and the new Transform action in the system prompt) has never been exercised against a real Claude API call.
+- The LLM tier (API key wiring, response parsing, and all four new/changed actions in the system prompt: Transform, Select, RunNativeCommand, the reference-parsing fix) has never been exercised against a real Claude API call.
 
 ## Exact next action
 1. Rebuild (`build.bat`) and confirm this round compiles clean.
 2. Retest acceptance phrase 1 ("change to medium line weight") still works after the changes — regression check.
 3. Test acceptance phrase 2 ("...intersects with the ground line at a 45 degree angle") for the first time — needs a second line on a layer with "ground" in its name in the test drawing first.
-4. Set `ANTHROPIC_API_KEY` (see `docs/PLUGIN_SETUP.md`), fully restart AutoCAD, and test a genuinely novel phrasing like "rotate this 10 degrees counterclockwise" to confirm the LLM tier and the new `Transform` action work end to end.
+4. Set `ANTHROPIC_API_KEY` (see `docs/PLUGIN_SETUP.md`), fully restart AutoCAD, and test: a genuinely novel phrasing like "rotate this 10 degrees counterclockwise" (Transform via LLM tier); a mouse-free selection like "select all circles" followed by a property-change instruction with no explicit target (Select + chained SetProperty); and a native-fallback instruction naming a real AutoCAD command the structured actions don't cover (RunNativeCommand) — watch specifically for whether SendStringToExecute behaves correctly when called from inside CURIOSITY, per the risk noted above.
 5. Expand `LocalPatternMatcher`'s phrasing set based on what real tier-2 cases look like once step 4 is live, per `docs/ARCHITECTURE.md`'s "grow tier 1 from real tier-2 cases" principle.
 
 ## Ground rules

@@ -15,6 +15,16 @@ namespace Curiosity.Plugin.NlParser
         Transform,   // general rotate/move/scale — the "make any edit" catch-all until a more
                      // specific action earns its own case, per the project owner's ask that this
                      // not be limited to lineweight-style property edits
+        Select,          // build a selection from a description ("the wall layer", "all circles")
+                         // and make it the active selection — lets you chain instructions without
+                         // touching the mouse
+        RunNativeCommand, // general fallback: translate to AutoCAD's own command-line syntax and
+                          // run it via SendStringToExecute, for the long tail of the ~1500+ command
+                          // surface that doesn't have (and may never get) a dedicated structured
+                          // action. Only reliable for commands that act on a selection plus typed
+                          // parameters — commands needing free-form mouse point-picking with no
+                          // location described in the instruction are out of scope by nature, not
+                          // a bug.
         RunMacro,
         Unrecognized
     }
