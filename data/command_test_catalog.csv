@@ -997,3 +997,378 @@ SAVETIME,Settings,set the autosave interval to 10 minutes,"SAVETIME
 MIRRTEXT,Settings,turn off text mirroring,"MIRRTEXT
 0
 ",SETVAR MIRRTEXT now reports 0; mirrored text stays readable instead of flipping.,not_tested
+ARCLEN,Annotation,add an arc length dimension to the selected arc,"DIMARC
+
+
+",A new arc-length dimension annotates the selected arc.,not_tested
+BHATCH,Annotation,hatch the selection with an ANSI31 pattern,"HATCH
+ANSI31
+
+
+",A new hatch with the ANSI31 pattern fills the selected boundary.,not_tested
+HATCHTOBACK,Modify,send the selected hatch behind other objects,"HATCHTOBACK
+
+",The selected hatch now draws behind overlapping objects.,not_tested
+SUPERHATCH,Annotation,hatch the selection using an image pattern,"HATCH
+",A pattern-filled hatch covers the selection (superhatch is a legacy/express tool; flagged partial).,not_tested
+DDMODIFY,Utility,open the properties dialog for the selection,"DDMODIFY
+
+",The Properties dialog/palette opens for the selected object.,not_tested
+CHANGE,Modify,change the selection's layer to Walls,"CHANGE
+
+P
+LA
+Walls
+
+",The selected object's layer changes to 'Walls'.,not_tested
+COPYCLIP,Utility,copy the selection to the clipboard,"COPYCLIP
+
+",The selected object's data is placed on the Windows clipboard.,not_tested
+PASTECLIP,Utility,paste the clipboard contents into the drawing,"PASTECLIP
+0,0
+",The clipboard's drawing content is pasted at the given point.,not_tested
+PASTEBLOCK,Utility,paste the clipboard contents as a new block,"PASTEBLOCK
+0,0
+",The clipboard's content is pasted as a new block reference.,not_tested
+PASTEORIG,Utility,paste the clipboard contents at its original coordinates,"PASTEORIG
+",The clipboard's content is pasted at the same coordinates it was copied from.,not_tested
+CUTCLIP,Utility,cut the selection to the clipboard,"CUTCLIP
+
+",The selected object is removed from the drawing and placed on the clipboard.,not_tested
+ARRAYCLASSIC,Modify,array the selection using the classic array dialog,"ARRAYCLASSIC
+",The legacy Array dialog opens (dialog-based; flagged partial).,not_tested
+ARRAYPOLAR,Modify,"array the selection in a polar pattern of 6 around 0,0","ARRAYPOLAR
+
+0,0
+6
+
+","6 copies exist arranged in a polar pattern around 0,0.",not_tested
+ARRAYPATH,Modify,array the selection along the selected path curve,"ARRAYPATH
+
+
+
+",Copies of the selection are distributed along the selected path curve.,not_tested
+ARRAYEDIT,Modify,edit the item count of the selected array,"ARRAYEDIT
+
+COL
+C
+5
+
+
+",The selected associative array's item count changes to 5.,not_tested
+BASEPOINT,Modify,set a new base point for the selection at its center,"BASE
+
+",The reference base point for subsequent move/copy/rotate operations is set.,not_tested
+ROTATE3D,3D Modeling,rotate the selection 90 degrees around the selected axis,"ROTATE3D
+
+
+
+90
+",The selected 3D object rotates 90 degrees about the specified axis.,not_tested
+MIRROR3D,3D Modeling,mirror the selection across the XY plane,"MIRROR3D
+
+XY
+0,0,0
+N
+",A mirrored copy of the 3D selection exists across the XY plane.,not_tested
+ALIGNSPACE,View,scale the selected viewport to match paper space annotation,"ALIGNSPACE
+
+
+
+
+",The selected layout viewport's scale adjusts to align model/paper space.,not_tested
+BVSTATE,Organization,create a new visibility state called Open for the selected dynamic block,"BVSTATE
+N
+Open
+",A new visibility state named 'Open' exists in the selected dynamic block.,not_tested
+BPARAMETER,Organization,add a linear parameter to the block definition,"BPARAMETER
+LINEAR
+0,0
+5,0
+",A new linear parameter exists in the open block definition.,not_tested
+BACTION,Organization,add a stretch action tied to the linear parameter,"BACTIONTOOL
+STRETCH
+
+",A new stretch action is tied to the block's linear parameter.,not_tested
+BLOOKUPTABLE,Organization,open the block's lookup table,"BLOOKUPTABLE
+
+",The Property Lookup Table dialog opens for the block definition (dialog-based; flagged partial).,not_tested
+BASSOCIATE,Organization,associate the selected action with the selected parameter,"BASSOCIATE
+
+
+",The selected action is linked to the selected parameter in the block editor.,not_tested
+DIMSPACE,Annotation,space the selected dimensions evenly,"DIMSPACE
+
+
+A
+",The selected parallel dimensions are evenly spaced from each other.,not_tested
+DIMBREAK,Annotation,break the selected dimension line where it crosses another object,"DIMBREAK
+
+
+",A gap appears in the selected dimension line where it crosses the other object.,not_tested
+DIMINSPECT,Annotation,add an inspection label to the selected dimension,"DIMINSPECT
+
+
+",An inspection frame is added to the selected dimension.,not_tested
+DIMREASSOCIATE,Annotation,reassociate the selected dimension to the current geometry,"DIMREASSOCIATE
+
+",The selected dimension reconnects to its defining geometry points.,not_tested
+DIMDISASSOCIATE,Annotation,disassociate the selected dimension from its geometry,"DIMDISASSOCIATE
+
+",The selected dimension no longer updates automatically with its geometry.,not_tested
+QLEADERSETTINGS,Settings,configure the quick leader annotation type,"QLEADER
+S
+",The Leader Settings dialog opens (dialog-based; flagged partial).,not_tested
+MLEADERALIGN,Modify,align the selected multileaders,"MLEADERALIGN
+
+
+",The selected multileaders align along a common direction.,not_tested
+MLEADERCOLLECT,Modify,collect the selected block multileaders into one,"MLEADERCOLLECT
+
+",The selected block-content multileaders combine into a single collected leader.,not_tested
+MLEADEREDIT,Modify,add a leader line to the selected multileader,"MLEADEREDIT
+A
+
+",A new leader line is added to the selected multileader.,not_tested
+DWGCONVERT,Output,convert the drawing to an older DWG format,"DWGCONVERT
+",The Batch Standards Checker/Convert utility opens (dialog-based; flagged partial).,not_tested
+DXFOUT,Output,export the drawing to DXF,"DXFOUT
+",A DXF file matching the drawing is saved (file-save dialog; flagged partial).,not_tested
+DXFIN,Output,import a DXF file into a new drawing,"DXFIN
+",The contents of the named DXF file are imported (file-open dialog; flagged partial).,not_tested
+DGNIMPORT,Output,import a MicroStation DGN file,"DGNIMPORT
+",The contents of the named DGN file are imported (file-open dialog; flagged partial).,not_tested
+DGNEXPORT,Output,export the drawing to DGN format,"DGNEXPORT
+",A DGN file matching the drawing is saved (file-save dialog; flagged partial).,not_tested
+PDFIMPORT,Output,import vector geometry from a PDF,"PDFIMPORT
+",Vector geometry from the named PDF is imported into the drawing (file-open dialog; flagged partial).,not_tested
+PDFATTACH,Organization,"attach a PDF as an underlay at 0,0","PDFATTACH
+C:/ref.pdf
+
+0,0
+1
+0
+","The named PDF is attached as an underlay at 0,0.",not_tested
+DWFATTACH,Organization,"attach a DWF as an underlay at 0,0","DWFATTACH
+C:/ref.dwf
+
+0,0
+1
+0
+","The named DWF is attached as an underlay at 0,0.",not_tested
+NAVISWORKS,Organization,attach a Navisworks NWD model as an underlay,"NWCATTACH
+C:/model.nwd
+0,0
+1
+0
+",The Navisworks model is attached as a federated underlay.,not_tested
+IMPORT,Organization,import geometry from a SAT file,"IMPORT
+C:/part.sat
+",Geometry from the named file is imported into the drawing (file-open dialog; flagged partial).,not_tested
+EXPORT,Output,export the selection to a WMF file,"EXPORT
+WMF
+
+
+",A WMF file containing the selected geometry is saved (file-save dialog; flagged partial).,not_tested
+TIME,Inquiry,report the drawing's time statistics,"TIME
+",Creation/edit/elapsed time statistics for the drawing print to the text window.,not_tested
+STATUS,Inquiry,report the drawing's status summary,"STATUS
+","Object counts, limits, and drawing settings print to the text window.",not_tested
+DBLIST,Inquiry,list all objects in the drawing database,"DBLIST
+",Full property data for every object in the drawing prints to the text window.,not_tested
+SETVAR,Utility,report the current value of DIMSCALE,"SETVAR
+DIMSCALE
+",The current value of the named system variable prints to the command line.,not_tested
+HELP,Utility,open help for the FILLET command,"HELP
+FILLET
+",The AutoCAD help topic for FILLET opens.,not_tested
+SYSWINDOWS,Utility,tile all open drawing windows,"SYSWINDOWS
+T
+",All open drawing windows arrange in a tiled layout.,not_tested
+CLOSEALL,Utility,close all open drawings,"CLOSEALL
+",Every open drawing document closes (prompting to save unsaved changes).,not_tested
+SAVEALL,Utility,save all open drawings,"SAVEALL
+",Every open drawing document is saved.,not_tested
+QSAVE,Utility,save the current drawing,"QSAVE
+",The current drawing is saved without prompting for a filename.,not_tested
+SAVEAS,Utility,save the drawing as C:/copy.dwg,"SAVEAS
+",The drawing is saved to the named path (file-save dialog; flagged partial).,not_tested
+DRAWINGRECOVERY,Utility,open the drawing recovery manager,"DRAWINGRECOVERY
+",The Drawing Recovery Manager palette lists recoverable files.,not_tested
+SIGVALIDATE,Utility,validate the drawing's digital signature,"SIGVALIDATE
+",The digital signature attached to the drawing is validated and reported.,not_tested
+CELTSCALE,Settings,set the current object linetype scale to 0.5,"CELTSCALE
+0.5
+","SETVAR CELTSCALE now reports 0.5, applied to newly drawn objects.",not_tested
+CELWEIGHT,Settings,set the current lineweight for new objects to 0.5mm,"CELWEIGHT
+50
+","SETVAR CELWEIGHT now reports 50 (0.50mm), applied to newly drawn objects.",not_tested
+CECOLOR,Settings,set the current color for new objects to red,"CECOLOR
+Red
+","SETVAR CECOLOR now reports 1 (red), applied to newly drawn objects.",not_tested
+CLAYER,Settings,set the current layer to Walls,"CLAYER
+Walls
+",SETVAR CLAYER now reports 'Walls' as the active layer.,not_tested
+FACETRES,Settings,set the curved-surface smoothness to 4,"FACETRES
+4
+",SETVAR FACETRES now reports 4; shaded/rendered curved solids appear smoother.,not_tested
+ISOLINES,Settings,set the wireframe contour density to 8,"ISOLINES
+8
+",SETVAR ISOLINES now reports 8; wireframe curved solids show more contour lines.,not_tested
+DISPSILH,Settings,turn on silhouette curves for solids,"DISPSILH
+1
+",SETVAR DISPSILH now reports 1; solids show a silhouette outline in wireframe/hidden mode.,not_tested
+MEASUREMENT,Settings,switch the drawing to metric hatch/linetype defaults,"MEASUREMENT
+1
+",SETVAR MEASUREMENT now reports 1 (metric).,not_tested
+INSUNITS,Settings,set block insertion units to millimeters,"INSUNITS
+4
+",SETVAR INSUNITS now reports 4 (millimeters).,not_tested
+LUPREC,Settings,set linear dimension precision to 4 decimal places,"LUPREC
+4
+",SETVAR LUPREC now reports 4.,not_tested
+COMPARE,Organization,compare the current drawing to a previous version,"COMPARE
+C:/previous.dwg
+",A color-coded overlay shows differences between the two drawing versions.,not_tested
+XCOMPARE,Organization,compare the selected xref to its source drawing,"XCOMPARE
+
+",A color-coded overlay shows differences inside the selected xref.,not_tested
+SHAREDVIEWS,Output,publish the current view as a shared web link,"SHAREDVIEWS
+",The Shared Views panel opens to publish a browser-viewable link (dialog-based; flagged partial).,not_tested
+PUBLISHTOWEB,Output,publish the drawing as an HTML page,"PUBLISHTOWEB
+",The Publish to Web wizard opens (dialog-based; flagged partial).,not_tested
+MARKUP,Organization,open the markup set manager,"MARKUP
+",The Markup Set Manager palette opens listing plotted/PDF markups.,not_tested
+TRACE,Organization,start a trace overlay on the current drawing,"TRACE
+","A Trace layer overlay opens for markup without altering the underlying drawing (feature UI, not a classic prompt command; flagged partial).",not_tested
+AIACTIVITYINSIGHTS,Organization,open the activity insights panel,"AIACTIVITYINSIGHTS
+",The Activity Insights palette opens showing the drawing's edit history (palette-based; flagged partial).,not_tested
+AIMYINSIGHTS,Organization,open the my insights panel,"AIMYINSIGHTS
+",The My Insights palette opens with personalized workflow tips (palette-based; flagged partial).,not_tested
+AIASSISTANT,Utility,open the Autodesk Assistant panel,"AIASSISTANT
+",The Autodesk Assistant conversational help panel opens (palette-based; flagged partial).,not_tested
+REVCLOUDLAYER,Settings,force new revision clouds onto the Markup layer,"REVCLOUDLAYER
+Markup
+",SETVAR REVCLOUDLAYER now reports 'Markup'; new revision clouds go on that layer.,not_tested
+TABLELAYER,Settings,force new tables onto the Tables layer,"TABLELAYER
+Tables
+",SETVAR TABLELAYER now reports 'Tables'; new tables go on that layer.,not_tested
+VIEWPORTLAYER,Settings,force new layout viewports onto the Viewports layer,"VIEWPORTLAYER
+Viewports
+",SETVAR VIEWPORTLAYER now reports 'Viewports'; new viewports go on that layer.,not_tested
+MLEADERLAYER,Settings,force new multileaders onto the Annotation layer,"MLEADERLAYER
+Annotation
+",SETVAR MLEADERLAYER now reports 'Annotation'; new multileaders go on that layer.,not_tested
+DIMLAYER,Settings,force new dimensions onto the Dimensions layer,"DIMLAYER
+Dimensions
+",SETVAR DIMLAYER now reports 'Dimensions'; new dimensions go on that layer.,not_tested
+TEXTLAYER,Settings,force new text onto the Text layer,"TEXTLAYER
+Text
+",SETVAR TEXTLAYER now reports 'Text'; new text goes on that layer.,not_tested
+CENTERLAYER,Settings,force new centerlines onto the Centerlines layer,"CENTERLAYER
+Centerlines
+",SETVAR CENTERLAYER now reports 'Centerlines'; new centerlines go on that layer.,not_tested
+HPLAYER,Settings,force new hatches onto the Hatch layer,"HPLAYER
+Hatch
+",SETVAR HPLAYER now reports 'Hatch'; new hatches go on that layer.,not_tested
+CENTERMARK,Annotation,add a center mark to the selected circle,"CENTERMARK
+
+",A center mark that stays attached to the circle appears at its center.,not_tested
+CENTERLINE,Annotation,add a centerline between the two selected lines,"CENTERLINE
+
+
+",A centerline that stays attached appears between the two selected parallel lines.,not_tested
+FIELD,Annotation,"insert a field showing the current date at 0,0","FIELD
+Date
+
+
+0,0
+","A new field-text object showing the current date exists at 0,0, updating automatically.",not_tested
+UPDATEFIELD,Utility,update all fields in the drawing,"UPDATEFIELD
+ALL
+
+",Every field-text object in the drawing refreshes to its current value.,not_tested
+FIELDDISPLAY,Settings,turn on gray background shading for fields,"FIELDDISPLAY
+1
+",SETVAR FIELDDISPLAY now reports 1; fields show a gray background in the drawing.,not_tested
+COUNT,Inquiry,count the number of circle blocks in the drawing,"COUNT
+
+",The number of matching block/object instances is reported and can push into a field or table.,not_tested
+BCOUNT,Inquiry,count instances of the selected block definition,"-BCOUNT
+
+",The number of instances of the selected block definition is reported.,not_tested
+EXTRIM,Modify,trim everything on one side of the selected cutting edge,"EXTRIM
+
+
+",Objects on the picked side of the cutting edge are trimmed away.,not_tested
+EXTEND,Modify,"extend the selection to the nearest boundary, using fence selection","EXTEND
+
+F
+
+
+",Multiple entities crossed by the fence line extend to the boundary.,not_tested
+FILLETPOLY,Modify,fillet all corners of the selected polyline with a 0.25 radius,"FILLET
+P
+
+",Every corner of the selected polyline is rounded with the current fillet radius.,not_tested
+CHAMFERPOLY,Modify,chamfer all corners of the selected polyline,"CHAMFER
+P
+
+",Every corner of the selected polyline is beveled with the current chamfer distances.,not_tested
+PEDITSPLINE,Modify,convert the selected polyline into a smooth spline-fit curve,"PEDIT
+
+S
+
+",The selected polyline's vertices are now spline-fit into a smooth curve.,not_tested
+PEDITWIDTH,Modify,set the selected polyline's width to 0.1,"PEDIT
+
+W
+0.1
+
+",The selected polyline's uniform width changes to 0.1.,not_tested
+SPLINEDITCV,Modify,add a control vertex to the selected spline,"SPLINEDIT
+
+E
+A
+
+",A new control vertex is added to the selected spline's definition.,not_tested
+EXPLODEBLOCK,Modify,explode the selected block into its component objects,"EXPLODE
+
+",The selected block reference is replaced by its individual constituent entities.,not_tested
+PURGEBLOCK,Organization,purge the unused block called OldFixture,"-PURGE
+B
+OldFixture
+N
+",The unused block definition 'OldFixture' is removed from the drawing.,not_tested
+RENAMEBLOCK,Organization,rename the block OldFixture to NewFixture,"RENAME
+B
+OldFixture
+NewFixture
+",The block definition previously named 'OldFixture' is now named 'NewFixture'.,not_tested
+GRIPS,Settings,turn off object grips display,"GRIPS
+0
+",SETVAR GRIPS now reports 0; selected objects no longer show grip handles.,not_tested
+GRIPCOLOR,Settings,set the unselected grip color to blue,"GRIPCOLOR
+5
+",SETVAR GRIPCOLOR now reports 5 (blue).,not_tested
+HIGHLIGHT,Settings,turn off selection highlighting,"HIGHLIGHT
+0
+",SETVAR HIGHLIGHT now reports 0; selected objects no longer visually highlight.,not_tested
+PICKADD,Settings,turn on pick-add so new picks add to the selection,"PICKADD
+2
+",SETVAR PICKADD now reports 2; subsequent picks add to rather than replace the selection.,not_tested
+PICKFIRST,Settings,turn on noun-verb selection,"PICKFIRST
+1
+",SETVAR PICKFIRST now reports 1; objects can be selected before a command starts.,not_tested
+BLIPMODE,Settings,turn off pick-point blip marks,"BLIPMODE
+0
+",SETVAR BLIPMODE now reports 0; no marker appears at picked points.,not_tested
+QTEXTMODE,Settings,turn on quick text display for faster regen,"QTEXTMODE
+1
+",SETVAR QTEXTMODE now reports 1; text displays as bounding boxes instead of glyphs.,not_tested
+EXPERT,Settings,suppress extra confirmation prompts,"EXPERT
+2
+",SETVAR EXPERT now reports 2; certain warning prompts are suppressed.,not_tested
+FILEDIA,Settings,turn off file dialog boxes in favor of command-line prompts,"FILEDIA
+0
+",SETVAR FILEDIA now reports 0; commands like OPEN/SAVE use command-line prompts instead of dialogs.,not_tested
