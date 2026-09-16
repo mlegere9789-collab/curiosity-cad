@@ -1,0 +1,332 @@
+command,category,nl_phrase,expected_command_string,verification,status
+LINE,2D Drafting,"draw a line from 0,0 to 5,5","LINE
+0,0
+5,5
+
+","A new Line entity exists with those endpoints (Properties panel Start/End X,Y).",not_tested
+CIRCLE,2D Drafting,"draw a circle at 3,3 with radius 2","CIRCLE
+3,3
+2
+","A new Circle entity exists with Center 3,3 and Radius 2 (Properties panel).",not_tested
+ARC,2D Drafting,"draw an arc from 0,0 through 2,2 to 4,0","ARC
+0,0
+2,2
+4,0
+",A new Arc entity exists spanning those points.,not_tested
+RECTANG,2D Drafting,"draw a rectangle from 0,0 to 10,5","RECTANG
+0,0
+10,5
+",A new closed Polyline (rectangle) exists with those corners.,not_tested
+POLYGON,2D Drafting,"draw a hexagon centered at 0,0 with radius 3","POLYGON
+6
+0,0
+I
+3
+","A new Polyline with 6 vertices exists, centered at origin.",not_tested
+PLINE,2D Drafting,"draw a polyline through 0,0 then 5,0 then 5,5","PLINE
+0,0
+5,0
+5,5
+
+",A new Polyline entity exists through those vertices.,not_tested
+XLINE,2D Drafting,draw a construction line through the selected point horizontally,"XLINE
+H
+
+","A new Xline (infinite line) exists, horizontal.",not_tested
+MLINE,2D Drafting,"draw parallel lines from 0,0 to 10,0","MLINE
+0,0
+10,0
+
+",A new Mline entity exists between those points.,not_tested
+SPLINE,2D Drafting,"draw a smooth curve through 0,0, 2,3, and 5,1","SPLINE
+0,0
+2,3
+5,1
+
+
+",A new Spline entity exists through those fit points.,not_tested
+DONUT,2D Drafting,"draw a donut at 0,0 with inner radius 1 and outer radius 2","DONUT
+1
+2
+0,0
+
+",A new filled ring (Donut) exists at that location with those radii.,not_tested
+POINT,2D Drafting,"place a point at 3,3","POINT
+3,3
+","A new Point entity exists at 3,3.",not_tested
+ELLIPSE,2D Drafting,"draw an ellipse centered at 0,0 with axis lengths 4 and 2","ELLIPSE
+C
+0,0
+4
+2
+",A new Ellipse entity exists with those axis lengths.,not_tested
+SOLID,2D Drafting,"draw a filled triangle at 0,0 5,0 and 2,5","SOLID
+0,0
+5,0
+2,5
+
+
+",A new 2D Solid entity exists spanning those points.,not_tested
+MOVE,Modify,move the selection 5 units to the right,"MOVE
+
+5,0
+","The selected entity's coordinates shifted by (5,0).",not_tested
+COPY,Modify,copy the selection 5 units to the right,"COPY
+
+5,0
+
+","A duplicate entity exists offset by (5,0) from the original.",not_tested
+ROTATE,Modify,rotate the selection 45 degrees,"ROTATE
+
+45
+",The selected entity's rotation angle changed by 45 degrees.,not_tested
+SCALE,Modify,scale the selection by 2,"SCALE
+
+2
+",The selected entity's dimensions doubled.,not_tested
+MIRROR,Modify,mirror the selection across the x axis,"MIRROR
+
+0,0
+1,0
+N
+",A mirrored copy exists reflected across the X axis.,not_tested
+STRETCH,Modify,stretch the selection 3 units up,"STRETCH
+
+0,3
+","The selected entity's geometry stretched by (0,3).",not_tested
+TRIM,Modify,trim the selection to the nearest boundary,"TRIM
+
+
+",The selected entity is shortened at its intersection with the boundary.,not_tested
+EXTEND,Modify,extend the selection to the nearest boundary,"EXTEND
+
+
+",The selected entity is lengthened to meet the boundary.,not_tested
+FILLET,Modify,fillet the selection with a 0.5 radius,"FILLET
+R
+0.5
+
+",A rounded corner with radius 0.5 replaces the sharp corner.,not_tested
+CHAMFER,Modify,chamfer the selection with a 0.25 distance,"CHAMFER
+D
+0.25
+0.25
+
+",A beveled corner replaces the sharp corner with 0.25 distances.,not_tested
+OFFSET,Modify,offset the selection by 2 units,"OFFSET
+2
+
+
+",A parallel copy exists 2 units from the original.,not_tested
+ARRAY,Modify,array the selection in a 3 by 3 grid,"ARRAYRECT
+
+3
+3
+
+",9 copies exist arranged in a 3x3 grid.,not_tested
+EXPLODE,Modify,explode the selection,"EXPLODE
+
+",The compound object is replaced by its individual sub-entities.,not_tested
+BREAK,Modify,break the selection at its midpoint,"BREAK
+
+",The entity is split into two at the picked point.,not_tested
+JOIN,Modify,join the selected lines,"JOIN
+
+",The selected collinear entities merge into one.,not_tested
+LENGTHEN,Modify,lengthen the selection by 2 units,"LENGTHEN
+DE
+2
+
+",The entity's length increased by 2 units.,not_tested
+PEDIT,Modify,close the selected polyline,"PEDIT
+
+C
+
+",The polyline's Closed property is now true.,not_tested
+MATCHPROP,Modify,match properties from the selection to the target,"MATCHPROP
+
+
+",The target entity's layer/color/linetype now match the source.,not_tested
+HATCH,Annotation,hatch the selected boundary with a solid fill,"HATCH
+S
+
+
+",A new Hatch entity fills the selected closed boundary.,not_tested
+MTEXT,Annotation,"add text saying Hello at 0,0","MTEXT
+0,0
+5,2
+Hello
+","A new Mtext entity exists containing 'Hello' near 0,0.",not_tested
+TEXT,Annotation,"add single-line text saying Hello at 0,0","TEXT
+0,0
+0.2
+0
+Hello
+
+","A new Text entity exists containing 'Hello' at 0,0.",not_tested
+DIMLINEAR,Annotation,add a linear dimension to the selection,"DIMLINEAR
+
+
+",A new linear dimension annotates the selected entity's length.,not_tested
+DIMALIGNED,Annotation,add an aligned dimension to the selection,"DIMALIGNED
+
+
+",A new aligned dimension annotates the selected entity.,not_tested
+DIMANGULAR,Annotation,add an angular dimension to the selection,"DIMANGULAR
+
+",A new angular dimension annotates the selected angle.,not_tested
+DIMRADIUS,Annotation,add a radius dimension to the selected circle,"DIMRADIUS
+
+
+",A new radius dimension annotates the selected circle.,not_tested
+DIMDIAMETER,Annotation,add a diameter dimension to the selected circle,"DIMDIAMETER
+
+
+",A new diameter dimension annotates the selected circle.,not_tested
+LEADER,Annotation,add a leader pointing to the selection saying Note,"QLEADER
+
+
+
+Note
+
+",A new leader with text 'Note' points at the target.,not_tested
+MLEADER,Annotation,add a multileader pointing to the selection saying Note,"MLEADER
+
+
+Note
+",A new multileader with text 'Note' points at the target.,not_tested
+TABLE,Annotation,"insert a 3 by 3 table at 0,0","TABLE
+0,0
+3
+3
+","A new Table entity with 3 rows and 3 columns exists at 0,0.",not_tested
+REVCLOUD,Annotation,draw a revision cloud around the selection,"REVCLOUD
+
+",A new revision cloud entity surrounds the selected area.,not_tested
+LAYER,Organization,create a new layer called Walls,"LAYER
+N
+Walls
+
+",A new layer named 'Walls' exists in the Layer list.,not_tested
+PURGE,Organization,purge unused items from the drawing,"PURGE
+A
+
+N
+",Unused blocks/layers/styles no longer appear in their respective lists.,not_tested
+RENAME,Organization,rename the layer Walls to Partitions,"RENAME
+LA
+Walls
+Partitions
+",The layer previously named 'Walls' is now named 'Partitions'.,not_tested
+GROUP,Organization,group the selection,"GROUP
+
+
+",The selected entities are now members of a new Group.,not_tested
+BLOCK,Organization,turn the selection into a block called Fixture,"BLOCK
+Fixture
+0,0
+
+
+","A new block definition named 'Fixture' exists, and the selection is replaced by a block reference.",not_tested
+INSERT,Organization,"insert the block called Fixture at 5,5","INSERT
+Fixture
+5,5
+
+
+
+","A new block reference to 'Fixture' exists at 5,5.",not_tested
+WBLOCK,Organization,write the selection out as a new drawing file,"WBLOCK
+
+
+",A new standalone .dwg file is created containing the selection.,not_tested
+XATTACH,Organization,attach the drawing at C:/ref.dwg as an xref,"XATTACH
+C:/ref.dwg
+
+0,0
+1
+0
+",The referenced drawing appears attached as an external reference.,not_tested
+ZOOM,View,zoom to fit the whole drawing,"ZOOM
+E
+",The view extents now show the entire drawing.,not_tested
+PAN,View,pan the view 5 units right,"PAN
+
+5,0
+",The visible viewport shifted right by 5 units.,not_tested
+REGEN,View,regenerate the drawing,"REGEN
+",The drawing display refreshes/rebuilds without error.,not_tested
+VIEW,View,save the current view as Front,"VIEW
+S
+Front
+",A new named view called 'Front' exists in the View list.,not_tested
+LAYOUT,View,create a new layout called Sheet2,"LAYOUT
+N
+Sheet2
+",A new layout tab named 'Sheet2' exists.,not_tested
+VPORTS,View,split the current viewport into 4,"VPORTS
+4
+",The model-space view is divided into 4 viewports.,not_tested
+UNITS,Settings,set drawing units to architectural,"UNITS
+4
+
+
+
+
+
+",The UNITS dialog's linear format is now Architectural (LUNITS=4).,not_tested
+SNAP,Settings,turn on snap with a 0.5 spacing,"SNAP
+ON
+
+0.5
+",SNAPMODE is 1 and SNAPUNIT reflects 0.5.,not_tested
+OSNAP,Settings,turn on endpoint and midpoint object snaps,"OSNAP
+END,MID
+
+",Endpoint and Midpoint running snaps are enabled.,not_tested
+DSETTINGS,Settings,open the drafting settings dialog,"DSETTINGS
+","The Drafting Settings dialog opens (interactive, dialog-based - flagged as a RunNativeCommand exception case).",not_tested
+EXTRUDE,3D Modeling,extrude the selection 5 units,"EXTRUDE
+
+5
+",The selected 2D profile becomes a 3D solid with 5 units of height.,not_tested
+REVOLVE,3D Modeling,revolve the selection 360 degrees around the x axis,"REVOLVE
+
+X
+360
+",The selected 2D profile becomes a 3D solid of revolution.,not_tested
+UNION,3D Modeling,union the selected solids,"UNION
+
+",The selected solids merge into one combined solid.,not_tested
+SUBTRACT,3D Modeling,subtract the second solid from the first,"SUBTRACT
+
+
+
+",The second solid's volume is removed from the first.,not_tested
+INTERSECT,3D Modeling,intersect the selected solids,"INTERSECT
+
+",Only the overlapping volume of the selected solids remains.,not_tested
+SLICE,3D Modeling,"slice the selection with a plane through 0,0,0","SLICE
+
+XY
+0,0,0
+
+",The solid is cut into two pieces at that plane.,not_tested
+3DROTATE,3D Modeling,rotate the selection 90 degrees around the z axis,"3DROTATE
+
+0,0,0
+90
+",The 3D entity's orientation rotated 90 degrees about Z.,not_tested
+PLOT,Output,plot the current layout to PDF,"PLOT
+
+
+
+
+
+
+
+
+
+Y
+","A PDF file is produced from the current layout (dialog-heavy - flagged as a partial RunNativeCommand case, FILEDIA may need to be 0).",not_tested
+EXPORTPDF,Output,export the drawing to PDF,"EXPORTPDF
+",A PDF file matching the drawing is produced (file-save dialog - partial case).,not_tested
